@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "557268782813",
+    "firebase_url": "https://school-b69d0-default-rtdb.firebaseio.com",
+    "project_id": "school-b69d0",
+    "storage_bucket": "school-b69d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557268782813:android:dcd22f518d8202cd515534",
+        "android_client_info": {
+          "package_name": "com.example.adminpannel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMqxPs3T-9tfUNK0mweo3qcXUCg5YecUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557268782813:android:d56772b56e1ab37b515534",
+        "android_client_info": {
+          "package_name": "com.example.schoolpannel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMqxPs3T-9tfUNK0mweo3qcXUCg5YecUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557268782813:android:069a05b4e8cba43a515534",
+        "android_client_info": {
+          "package_name": "com.example.studdentspannel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMqxPs3T-9tfUNK0mweo3qcXUCg5YecUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557268782813-2tom72i3185qakgft51sfm625ka8c75j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
