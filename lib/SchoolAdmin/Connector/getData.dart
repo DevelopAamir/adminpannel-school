@@ -706,7 +706,7 @@ class GetData {
                         children: [
                           ListTile(
                             onTap: () {
-                              launch(snapshot.data!.docs[i]['url']);
+                              Upload().getMedia(snapshot.data!.docs[i]['url']);
                             },
                             onLongPress: () {
                               showDialog(
@@ -732,7 +732,7 @@ class GetData {
                                                   .collection(school)
                                                   .doc('Academics')
                                                   .collection(class_ + section)
-                                                  .doc('Exams')
+                                                  .doc('Results')
                                                   .collection(DateTime.now()
                                                       .year
                                                       .toString())

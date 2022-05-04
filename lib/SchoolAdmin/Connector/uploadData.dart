@@ -76,8 +76,9 @@ class Upload {
   Future<String> uploadProfilepic(image) async {
     var imageUrl = '';
     try {
-      UploadTask uploadTask =
-          FirebaseStorage.instance.ref("profilepictures").putData(image!);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref("ProfilePics/${image.name}")
+          .putData(image!.bytes);
       TaskSnapshot snapshot = await uploadTask;
       imageUrl = await snapshot.ref.getDownloadURL();
     } catch (e) {
@@ -218,7 +219,8 @@ class Upload {
         .collection(school)
         .doc('Classes')
         .collection('RegisteredClasses')
-        .add({
+        .doc(DateTime.now().toString())
+        .set({
       'class': className,
       'section': sectionName,
     });
@@ -233,7 +235,8 @@ class Upload {
         .collection(class_ + section)
         .doc('HomeWorks')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 
   addStudyMaterial({required data, context, class_, section}) async {
@@ -245,7 +248,8 @@ class Upload {
         .collection(class_ + section)
         .doc('StudyMaterials')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 
   addExam({required data, context, class_, section}) async {
@@ -257,7 +261,8 @@ class Upload {
         .collection(class_ + section)
         .doc('Exams')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 
   addResult({required data, context, class_, section}) async {
@@ -269,7 +274,8 @@ class Upload {
         .collection(class_ + section)
         .doc('Results')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 
   addRoutine({required data, context, class_, section}) async {
@@ -281,7 +287,8 @@ class Upload {
         .collection(class_ + section)
         .doc('Routine')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 
   addAttendance({required data, context, class_, section}) async {
@@ -307,7 +314,7 @@ class Upload {
             .doc('daily')
             .collection(
                 DateFormat('yyyy-MM-dd').format(DateTime.now()).toString())
-            .doc(data['Rollno'] + data['Name'])
+            .doc(DateTime.now().toString())
             .set(data);
       }
     });
@@ -336,7 +343,7 @@ class Upload {
             .doc('daily')
             .collection(
                 DateFormat('yyyy-MM-dd').format(DateTime.now()).toString())
-            .doc(data['Name'] + data['Per_Address'])
+            .doc(DateTime.now().toString())
             .set(data);
       }
     });
@@ -351,6 +358,7 @@ class Upload {
         .collection(class_ + section)
         .doc('LiveClass')
         .collection(DateTime.now().year.toString())
-        .add(data);
+        .doc(DateTime.now().toString())
+        .set(data);
   }
 }

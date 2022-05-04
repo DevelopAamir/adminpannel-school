@@ -6,6 +6,7 @@ import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Responsive/sinupre
 import 'package:adminpannel/SchoolAdmin/Pages.dart/SignUp_Staff.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:adminpannel/Storage/storage.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,16 +33,17 @@ class _UserStudentState extends State<UserStudent> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmpassword = TextEditingController();
 
-  File? image;
+  var image;
   var imageurl = '';
   void imageSelect() async {
     try {
       setState(() {
         visibility = true;
       });
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await await FilePicker.platform
+          .pickFiles(allowMultiple: false, type: FileType.image);
       if (image == null) return;
-      final imageTemporary = File(image.path);
+      final imageTemporary = image.files[0];
       setState(() {
         this.image = imageTemporary;
       });

@@ -47,15 +47,42 @@ class Drawer1 extends StatelessWidget {
               page: '/Media',
               icon: Icons.perm_media,
             ),
-            DrawerButton(
-              texts: 'Calender',
-              page: 'Calender',
-              icon: Icons.calendar_month,
-            ),
-            DrawerButton(
-              texts: 'Add Result',
-              page: '/Addresult',
-              icon: Icons.person,
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2015, 8),
+                      lastDate: DateTime(2101));
+                },
+                child: Card(
+                  elevation: 0.5,
+                  color: Color(0xffE1EFF0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          size: 20,
+                          color: Color(0xff1DB691),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Calender',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

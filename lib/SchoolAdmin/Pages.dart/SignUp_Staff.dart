@@ -33,7 +33,7 @@ class _SignupStaffState extends State<SignupStaff> {
       final selectedimage = await FilePicker.platform
           .pickFiles(allowMultiple: false, type: FileType.image);
       if (selectedimage == null) return;
-      final imageTemporary = selectedimage.files[0].bytes;
+      final imageTemporary = selectedimage.files[0];
       setState(() {
         image = imageTemporary;
       });

@@ -111,32 +111,6 @@ class ManageCard extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Attendance',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(
-                height: 5,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Cards1(
-                      color: Color(0xffD0F2FF),
-                      text: '9',
-                    ),
-                    Cards1(
-                      color: Color(0xffFFF7CD),
-                      text: '3',
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
