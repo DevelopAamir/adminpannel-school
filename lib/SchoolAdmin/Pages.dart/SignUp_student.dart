@@ -33,9 +33,12 @@ class _UserStudentState extends State<UserStudent> {
   TextEditingController confirmpassword = TextEditingController();
 
   File? image;
-
+  var imageurl = '';
   void imageSelect() async {
     try {
+      setState(() {
+        visibility = true;
+      });
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
@@ -43,7 +46,10 @@ class _UserStudentState extends State<UserStudent> {
         this.image = imageTemporary;
       });
       final url = await Upload().uploadProfilepic(image);
-
+      setState(() {
+        imageurl = url;
+        visibility = true;
+      });
       Provider.of<SchoolProvider>(context, listen: false)
           .addStudentInformation(key: 'Profile_Pic', value: url);
     } catch (e) {
@@ -88,31 +94,7 @@ class _UserStudentState extends State<UserStudent> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xff12B081),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignupStaff();
-                      },
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Add Staff',
-                  style: TextStyle(color: Colors.white),
-                )),
-          )
-        ],
-        title: Text('ADD USERS'),
+        title: Text('ADD Student'),
       ),
       body: width >= height
           ? Stack(
@@ -128,9 +110,9 @@ class _UserStudentState extends State<UserStudent> {
                           onPressed: () {
                             imageSelect();
                           },
-                          child: image != null
-                              ? Image.file(
-                                  image!,
+                          child: imageurl != ''
+                              ? Image.network(
+                                  imageurl,
                                   fit: BoxFit.fill,
                                 )
                               : Icon(Icons.person),

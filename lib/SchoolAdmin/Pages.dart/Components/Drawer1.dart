@@ -48,36 +48,6 @@ class Drawer1 extends StatelessWidget {
               icon: Icons.perm_media,
             ),
             DrawerButton(
-              texts: 'Attendance',
-              page: '/Attendance',
-              icon: Icons.contact_page,
-            ),
-            DrawerButton(
-              texts: 'Notice',
-              page: '/Notice',
-              icon: Icons.notifications_active,
-            ),
-            DrawerButton(
-              texts: 'Leave History',
-              page: '/Leavehistory',
-              icon: Icons.sick,
-            ),
-            DrawerButton(
-              texts: 'Add User',
-              page: '/AddUser',
-              icon: Icons.person,
-            ),
-            // DrawerButton(
-            //   texts: 'Staff page',
-            //   page: '/Staffs',
-            //   icon: Icons.person,
-            // ),
-            DrawerButton(
-              texts: 'Settings',
-              page: '/AddUser',
-              icon: Icons.person,
-            ),
-            DrawerButton(
               texts: 'Calender',
               page: 'Calender',
               icon: Icons.calendar_month,

@@ -26,6 +26,7 @@ class Maps {
       'Per_Address': '',
       'DOB': '',
       'Phone_No': '',
+      'Section': ''
     },
     'Classes': {
       'Science': {'Title': '', 'Link': '', 'Time': ''},

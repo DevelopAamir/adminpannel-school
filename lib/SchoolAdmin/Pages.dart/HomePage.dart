@@ -88,9 +88,7 @@ class _HomePageState extends State<HomePage> {
                                     radius: 22,
                                     backgroundColor: Colors.green[200],
                                     child: InkWell(
-                                      onTap: () {
-                                        Upload().uploadFile(context);
-                                      },
+                                      onTap: () {},
                                       child: CircleAvatar(
                                         radius: 20,
                                         backgroundColor: Color(

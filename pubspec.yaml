@@ -49,6 +49,7 @@ dependencies:
   universal_html: ^2.0.8
   intl: ^0.17.0
   http: ^0.13.4
+  percent_indicator: ^4.0.0
 
   
 

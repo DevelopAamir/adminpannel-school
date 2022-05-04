@@ -204,7 +204,7 @@ class _TakeSattState extends State<TakeSatt> {
                                           .length -
                                       1 -
                                       i;
-                                  return Cards(
+                                  return Cards1(
                                     sn: '${i + 1}',
                                     date: DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now())
@@ -244,7 +244,7 @@ class _TakeSattState extends State<TakeSatt> {
   }
 }
 
-class Cards extends StatefulWidget {
+class Cards1 extends StatefulWidget {
   final sn;
   final date;
   final name;
@@ -252,8 +252,9 @@ class Cards extends StatefulWidget {
   final getStatus;
   final type;
   final grade;
+  final Function(bool?)? onChanged;
 
-  const Cards({
+  const Cards1({
     Key? key,
     required this.sn,
     required this.date,
@@ -262,35 +263,37 @@ class Cards extends StatefulWidget {
     required this.getStatus,
     required this.type,
     required this.grade,
+    this.onChanged,
+    status,
   }) : super(key: key);
 
   @override
-  _CardsState createState() => _CardsState();
+  _Cards1State createState() => _Cards1State();
 }
 
-class _CardsState extends State<Cards> {
+class _Cards1State extends State<Cards1> {
   var present = false;
   @override
-  void initState() {
-    GetData().getAttendance(context, widget.type).then((value) {
-      Map<String, Object?> dataToBeUploaded = {
-        '${value.length + int.parse(widget.sn)}': {
-          'Name': widget.name,
-          'Class': widget.grade,
-          'Day': widget.day,
-          'Date': widget.date,
-          'Type': widget.type,
-          'Status': present
-        }
-      };
-      Provider.of<SchoolProvider>(context, listen: false)
-          .setStudentRegister(dataToBeUploaded);
-      print(Provider.of<SchoolProvider>(context, listen: false)
-          .attendanceToBeSend);
-    });
+  // void initState() {
+  //   GetData().getAttendance(context, widget.type).then((value) {
+  //     Map<String, Object?> dataToBeUploaded = {
+  //       '${value.length + int.parse(widget.sn)}': {
+  //         'Name': widget.name,
+  //         'Class': widget.grade,
+  //         'Day': widget.day,
+  //         'Date': widget.date,
+  //         'Type': widget.type,
+  //         'Status': present
+  //       }
+  //     };
+  //     Provider.of<SchoolProvider>(context, listen: false)
+  //         .setStudentRegister(dataToBeUploaded);
+  //     print(Provider.of<SchoolProvider>(context, listen: false)
+  //         .attendanceToBeSend);
+  //   });
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -311,6 +314,10 @@ class _CardsState extends State<Cards> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 2.0, height: 12, color: Colors.white),
+            ),
             Expanded(
               child: Container(
                 child: Padding(
@@ -324,6 +331,10 @@ class _CardsState extends State<Cards> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 2.0, height: 12, color: Colors.white),
+            ),
             Expanded(
               child: Container(
                 child: Text(
@@ -331,6 +342,10 @@ class _CardsState extends State<Cards> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 2.0, height: 12, color: Colors.white),
             ),
             Expanded(
               child: Container(
@@ -340,6 +355,10 @@ class _CardsState extends State<Cards> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 2.0, height: 12, color: Colors.white),
+            ),
             Expanded(
               child: Container(
                 child: Padding(
@@ -347,29 +366,9 @@ class _CardsState extends State<Cards> {
                     right: 15.0,
                   ),
                   child: Checkbox(
-                      value: present,
-                      onChanged: (v) {
-                        setState(() {
-                          present == false ? present = true : present = false;
-                        });
-                        GetData().getAttendance(context, widget.type).then((a) {
-                          Map<String, Object?> dataToBeUploaded = {
-                            '${a.length + int.parse(widget.sn)}': {
-                              'Name': widget.name,
-                              'Class': widget.grade,
-                              'Day': widget.day,
-                              'Date': widget.date,
-                              'Type': widget.type,
-                              'Status': present
-                            }
-                          };
-                          Provider.of<SchoolProvider>(context, listen: false)
-                              .setStudentRegister(dataToBeUploaded);
-                          print(Provider.of<SchoolProvider>(context,
-                                  listen: false)
-                              .attendanceToBeSend);
-                        });
-                      }),
+                    value: widget.getStatus,
+                    onChanged: widget.onChanged,
+                  ),
                 ),
               ),
             ),

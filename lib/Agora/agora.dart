@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart';
 import 'package:agora_rtc_engine/rtc_engine.dart';
@@ -9,13 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_channel.dart' as RtcChannel;
 import 'package:permission_handler/permission_handler.dart';
 
-const appid = "93c6765985654033bf9c6dab27ab09d0";
-const token = "eedad02e296c42f0a9bef40bed1bf2a1";
+const appid = "b8a814db045c47c381a8234b21df6e09";
 
 class AgoraSDK extends StatefulWidget {
+  final channel;
   final class_;
   final section;
-  const AgoraSDK({Key? key, this.class_, this.section}) : super(key: key);
+  const AgoraSDK({Key? key, this.class_, this.section, this.channel})
+      : super(key: key);
 
   @override
   State<AgoraSDK> createState() => _AgoraSDKState();
@@ -28,32 +30,22 @@ class _AgoraSDKState extends State<AgoraSDK> {
   bool camera = true;
   bool audio = true;
   var selectedRemoteUser;
+  final _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
     super.initState();
-    createchannel();
-  }
-
-  createchannel() async {
-    try {
-      final channel =
-          await RtcChannel.RtcChannel.create('khhasdyuagdsiuiusgfigff')
-              .then((value) {
-        //   value.joinChannel(token, null, 0, ChannelMediaOptions());
-      });
-    } catch (e) {
-      log(e.toString());
-    }
+    initAgora();
   }
 
   Future<void> initAgora() async {
     // retrieve permissions
-
-    window.navigator.getUserMedia(audio: true, video: true).then((v) {
+    MediaStream.supported
+        ? window.navigator.getUserMedia(audio: true, video: true).then((v) {
 //code to execute after accessing
-      log('microphone and camera accessed');
-    });
+            log('microphone and camera accessed');
+          })
+        : Fluttertoast.showToast(msg: 'Unsupported Device');
 
     //create the engine
     try {
@@ -87,7 +79,11 @@ class _AgoraSDKState extends State<AgoraSDK> {
           );
 
           await _engine.joinChannel(
-              token, widget.class_ + widget.section, null, 0);
+            '',
+            widget.channel,
+            _auth.currentUser!.email,
+            0,
+          );
         }
       });
     } catch (e) {
@@ -208,7 +204,7 @@ class _AgoraSDKState extends State<AgoraSDK> {
                     child: Center(
                       child: _localUserJoined
                           ? RtcLocalView.SurfaceView(
-                              channelId: 'test',
+                              channelId: widget.channel,
                             )
                           : CircularProgressIndicator(
                               backgroundColor:
@@ -267,8 +263,8 @@ class _AgoraSDKState extends State<AgoraSDK> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: InkWell(
-                      onTap: () {
-                        leave();
+                      onTap: () async {
+                        await leave();
                       },
                       child: Container(
                         child: Center(
@@ -333,6 +329,11 @@ class _AgoraSDKState extends State<AgoraSDK> {
         textAlign: TextAlign.center,
       );
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
 
