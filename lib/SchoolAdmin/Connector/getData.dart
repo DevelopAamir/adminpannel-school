@@ -1142,7 +1142,9 @@ class GetData {
                           'roll_no': snapshot.data!.docs[i]['roll_no'],
                           'startDate': snapshot.data!.docs[i]['startDate'],
                           'text': snapshot.data!.docs[i]['text'],
-                          // 'message': message
+                          'message': Provider.of<SchoolProvider>(context,
+                                  listen: false)
+                              .message
                         });
                       },
                       onUnApprove: () {
@@ -1156,7 +1158,9 @@ class GetData {
                           'roll_no': snapshot.data!.docs[i]['roll_no'],
                           'startDate': snapshot.data!.docs[i]['startDate'],
                           'text': snapshot.data!.docs[i]['text'],
-                          // 'message': message
+                          'message': Provider.of<SchoolProvider>(context,
+                                  listen: false)
+                              .message
                         });
                       },
                       data: snapshot.data!.docs[i],

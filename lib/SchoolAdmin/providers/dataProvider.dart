@@ -11,6 +11,13 @@ class SchoolProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  var message;
+
+  updateMessage(value) {
+    message = value;
+    notifyListeners();
+  }
+
   List<String> feeCatogaries = ['Select'];
   List<String> examNames = ['Select'];
   var role;

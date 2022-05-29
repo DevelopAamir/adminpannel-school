@@ -205,9 +205,8 @@ class _ApplicationCardState extends State<ApplicationCard> {
                     obsecuewtext: false,
                     text: 'Enter Message',
                     onChange: (v) {
-                      setState(() {
-                        message = v;
-                      });
+                      Provider.of<SchoolProvider>(context, listen: false)
+                          .updateMessage(v);
                     },
                   )),
             ),
@@ -277,7 +276,7 @@ class _ApplicationCardState extends State<ApplicationCard> {
                                     : widget.data['Status'] == 'Approved'
                                         ? Colors.green
                                         : Colors.green.shade100,
-                                onPressed: widget.onApprove(),
+                                onPressed: widget.onApprove,
                                 child: Text(
                                   'Approve',
                                   style: TextStyle(
@@ -292,7 +291,7 @@ class _ApplicationCardState extends State<ApplicationCard> {
                                     : widget.data['Status'] == 'Rejected'
                                         ? Colors.red
                                         : Colors.green.shade100,
-                                onPressed: widget.onUnApprove(),
+                                onPressed: widget.onUnApprove,
                                 child: Text(
                                   'Reject',
                                   style: TextStyle(
