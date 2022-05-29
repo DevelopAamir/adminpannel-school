@@ -45,109 +45,105 @@ class _NoticeState extends State<Notice> {
       'url': '',
     };
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Color(0xff12B081),
-          title: Text('Notice'),
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Add Notice'),
-                          actions: [
-                            OutlinedButton(
-                              child: Text('Next'),
+      appBar: AppBar(title: Text('Notice'), actions: [
+        IconButton(
+            onPressed: () async {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Add Notice'),
+                      actions: [
+                        OutlinedButton(
+                          child: Text('Next'),
+                          onPressed: () async {
+                            setState(() {
+                              visibility = true;
+                            });
+                            if (dataToBeAdded['title'] != '' &&
+                                dataToBeAdded['description'] != '') {
+                              try {
+                                await firestore
+                                    .collection('Notices')
+                                    .doc(id)
+                                    .set(dataToBeAdded)
+                                    .then((value) async {
+                                  await firestore
+                                      .collection(schoolName)
+                                      .doc('Notices')
+                                      .collection('Notices')
+                                      .add({
+                                    'description': dataToBeAdded['description'],
+                                    'notice_id': dataToBeAdded['notice_id'],
+                                    'title': dataToBeAdded['title'],
+                                    'date': DateTime.now()
+                                  }).then((value) {
+                                    Fluttertoast.showToast(
+                                        msg: 'Notice Added Successfully');
+                                  });
+                                });
+                                setState(() {
+                                  visibility = false;
+                                });
+                              } catch (e) {
+                                print(e);
+                                setState(() {
+                                  visibility = false;
+                                });
+                              }
+                            } else {
+                              print('Fill All Parameters');
+                            }
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                        OutlinedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Back'))
+                      ],
+                      content: Column(
+                        children: [
+                          TextField(
+                            onChanged: (a) {
+                              setState(() {
+                                dataToBeAdded['title'] = a;
+                              });
+                            },
+                            decoration:
+                                InputDecoration(hintText: 'Enter title'),
+                          ),
+                          TextField(
+                            onChanged: (a) {
+                              setState(() {
+                                dataToBeAdded['description'] = a;
+                              });
+                            },
+                            decoration:
+                                InputDecoration(hintText: 'Enter Description'),
+                          ),
+                          IconButton(
                               onPressed: () async {
                                 setState(() {
                                   visibility = true;
                                 });
-                                if (dataToBeAdded['title'] != '' &&
-                                    dataToBeAdded['description'] != '') {
-                                  try {
-                                    await firestore
-                                        .collection('Notices')
-                                        .doc(id)
-                                        .set(dataToBeAdded)
-                                        .then((value) async {
-                                      await firestore
-                                          .collection(schoolName)
-                                          .doc('Notices')
-                                          .collection('Notices')
-                                          .add({
-                                        'description':
-                                            dataToBeAdded['description'],
-                                        'notice_id': dataToBeAdded['notice_id'],
-                                        'title': dataToBeAdded['title'],
-                                        'date': DateTime.now()
-                                      }).then((value) {
-                                        Fluttertoast.showToast(
-                                            msg: 'Notice Added Successfully');
-                                      });
-                                    });
-                                    setState(() {
-                                      visibility = false;
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                    setState(() {
-                                      visibility = false;
-                                    });
-                                  }
-                                } else {
-                                  print('Fill All Parameters');
-                                }
-
-                                Navigator.pop(context);
+                                Upload().uploadFile(context).then((value) {
+                                  setState(() {
+                                    dataToBeAdded['url'] = value;
+                                    visibility = false;
+                                  });
+                                });
                               },
-                            ),
-                            OutlinedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Back'))
-                          ],
-                          content: Column(
-                            children: [
-                              TextField(
-                                onChanged: (a) {
-                                  setState(() {
-                                    dataToBeAdded['title'] = a;
-                                  });
-                                },
-                                decoration:
-                                    InputDecoration(hintText: 'Enter title'),
-                              ),
-                              TextField(
-                                onChanged: (a) {
-                                  setState(() {
-                                    dataToBeAdded['description'] = a;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    hintText: 'Enter Description'),
-                              ),
-                              IconButton(
-                                  onPressed: () async {
-                                    setState(() {
-                                      visibility = true;
-                                    });
-                                    Upload().uploadFile(context).then((value) {
-                                      setState(() {
-                                        dataToBeAdded['url'] = value;
-                                        visibility = false;
-                                      });
-                                    });
-                                  },
-                                  icon: Icon(Icons.attach_file))
-                            ],
-                          ),
-                        );
-                      });
-                },
-                icon: Icon(Icons.add))
-          ]),
+                              icon: Icon(Icons.attach_file))
+                        ],
+                      ),
+                    );
+                  });
+            },
+            icon: Icon(Icons.add))
+      ]),
       body: Stack(
         children: [
           StreamBuilder(

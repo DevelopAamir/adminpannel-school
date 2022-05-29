@@ -6,6 +6,7 @@ class Textfield extends StatelessWidget {
   final obsecuewtext;
   final controller;
   final onChange;
+  final onTap;
 
   const Textfield({
     Key? key,
@@ -14,6 +15,7 @@ class Textfield extends StatelessWidget {
     required this.icon,
     required this.controller,
     required this.onChange,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class Textfield extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          onTap: onTap,
           onChanged: onChange,
           controller: controller,
           obscureText: obsecuewtext,

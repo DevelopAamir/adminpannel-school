@@ -11,7 +11,7 @@ class Medias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color(0xff12B081), title: Text('Media')),
+      appBar: AppBar(title: Text('Media')),
       body: StreamBuilder(
         stream: firestore
             .collection(

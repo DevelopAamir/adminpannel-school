@@ -14,12 +14,19 @@ class LogIn {
       try {
         final response = await auth.signInWithEmailAndPassword(
             email: email, password: password);
-        Fluttertoast.showToast(
-            msg: 'Sucessfully Logged In', backgroundColor: Colors.green);
+        print(response.user.toString());
         final id = response.user!.uid.toString();
         await Store().storeData('id', id);
+        await Store().storeData('role', response.user!.photoURL.toString());
+        if (response.user!.photoURL.toString() == 'Staff') {
+          await Store()
+              .storeData('schoolName', response.user!.displayName.toString());
+        }
         getData(context).then((value) {
-          Navigator.popAndPushNamed(context, '/HomePage');
+          Fluttertoast.showToast(
+              msg: 'Sucessfully Logged In', backgroundColor: Colors.green);
+          Navigator.push(
+              context, MaterialPageRoute(builder: ((context) => HomePage())));
         });
       } on FirebaseAuthException catch (e) {
         print(e.message);
@@ -40,12 +47,31 @@ class LogIn {
 
   Future<void> getData(context) async {
     final iD = await Store().getData('id');
+    final role = await Store().getData('role');
+    final school = await Store().getData('schoolName');
     try {
       final fireStore = FirebaseFirestore.instance;
-      final response = await fireStore.collection('ADMIN').doc(iD).get();
-
-      Provider.of<SchoolProvider>(context, listen: false)
-          .getSchoolInfo(response);
+      final response = role == 'Staff'
+          ? await fireStore
+              .collection(school.toString())
+              .doc('Staff')
+              .collection(DateTime.now().year.toString())
+              .doc(iD)
+              .get()
+          : await fireStore.collection('ADMIN').doc(iD).get();
+      print(response.data()!.toString());
+      if (role != 'Staff') {
+        Provider.of<SchoolProvider>(context, listen: false)
+            .getSchoolInfo(response);
+        Provider.of<SchoolProvider>(context, listen: false)
+            .setPermission(response.data()!['permissions']);
+      } else {
+        Provider.of<SchoolProvider>(context, listen: false)
+            .getStaffInfo(response);
+        Provider.of<SchoolProvider>(context, listen: false)
+            .setPermission(response.data()!['permission']);
+        Provider.of<SchoolProvider>(context, listen: false).getRole(iD);
+      }
     } on FirebaseException catch (e) {
       print(e);
     }

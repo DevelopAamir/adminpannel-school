@@ -1,3 +1,4 @@
+import 'package:adminpannel/SchoolAdmin/Pages.dart/HomePage.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Landing%20component/Clients.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Landing%20component/Contacts.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Login.dart';
@@ -40,87 +41,117 @@ class _LandingpageState extends State<Landingpage> {
         dx = event.position.dx;
         dy = event.position.dy;
       }),
-      child: Scaffold(
-        backgroundColor: Color(0xffF9FCFE),
-        appBar: AppBar(
-          leadingWidth: 175.0,
-          leading: Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Image(
-              fit: BoxFit.fitWidth,
-              image: AssetImage(
-                "images/bird0.png",
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: Color(0xffFFFFFF),
+            appBar: AppBar(
+              toolbarHeight: 90,
+              leadingWidth: 175.0,
+              backgroundColor: Colors.white30,
+              elevation: 0,
+              actions: [
+                Spacer(),
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Apbarbutton(
+                          text: 'Home',
+                          onTap: () {
+                            setState(() {
+                              currentIndex = 0;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Apbarbutton(
+                          text: 'Feature',
+                          onTap: () {
+                            setState(() {
+                              currentIndex = 1;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Apbarbutton(
+                          text: 'Clients',
+                          onTap: () {
+                            setState(() {
+                              currentIndex = 2;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Apbarbutton(
+                          text: 'Contact',
+                          onTap: () {
+                            setState(() {
+                              currentIndex = 3;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Apbarbutton(
+                          text: 'Login',
+                          onTap: () async {
+                            await getToken(context);
+                            if (Provider.of<SchoolProvider>(context,
+                                        listen: false)
+                                    .accessToken ==
+                                null) {
+                              setState(() {
+                                currentIndex = 4;
+                              });
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => HomePage())));
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            body: Builder(builder: (context) {
+              return widgets[currentIndex];
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, top: 20),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                height: 67,
+                width: 201,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage(
+                      "images/finalbird.png",
+                    ),
+                  ),
+                ),
+                // child: Image(
+                //   fit: BoxFit.fitWidth,
+                //   image: AssetImage(
+                //     "images/bird0.png",
+                //   ),
+                // ),
               ),
             ),
           ),
-          backgroundColor: Color(0xffF9FCFE),
-          elevation: 0,
-          actions: [
-            Spacer(),
-            Container(
-              width: MediaQuery.of(context).size.width / 2,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Apbarbutton(
-                      text: 'Home',
-                      onTap: () {
-                        setState(() {
-                          currentIndex = 0;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Apbarbutton(
-                      text: 'Feature',
-                      onTap: () {
-                        setState(() {
-                          currentIndex = 1;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Apbarbutton(
-                      text: 'Clients',
-                      onTap: () {
-                        setState(() {
-                          currentIndex = 2;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Apbarbutton(
-                      text: 'Contact',
-                      onTap: () {
-                        setState(() {
-                          currentIndex = 3;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Apbarbutton(
-                      text: 'Login',
-                      onTap: () async {
-                        await getToken(context);
-
-                        setState(() {
-                          currentIndex = 4;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        body: Builder(builder: (context) {
-          return widgets[currentIndex];
-        }),
+        ],
       ),
     );
   }
@@ -165,10 +196,10 @@ class _ApbarbuttonState extends State<Apbarbutton> {
         child: MaterialButton(
           padding: EdgeInsets.zero,
           enableFeedback: false,
-          highlightColor: Colors.transparent,
+          highlightColor: Color(0xff4AA393),
           clipBehavior: Clip.none,
           highlightElevation: 5.0,
-          splashColor: Colors.transparent,
+          splashColor: Color(0xff4AA393),
           onPressed: widget.onTap,
           child: Container(
             height: focus == false ? 40 : 45,
@@ -180,21 +211,19 @@ class _ApbarbuttonState extends State<Apbarbutton> {
               ),
             ),
             decoration: BoxDecoration(
-              color: focus == false
-                  ? Colors.white
-                  : Color.fromARGB(255, 245, 248, 245),
+              color: focus == false ? Color(0xffFFFFFF) : Color(0xffFFFFFF),
               borderRadius: BorderRadiusDirectional.circular(26),
               boxShadow: [
                 focus == false
                     ? BoxShadow(
-                        color: Color(0xff12FFFF).withOpacity(0.2),
-                        spreadRadius: 2.0,
-                        blurRadius: 10.0,
-                        offset: Offset(0, 2))
+                        color: Color(0xff4AA393).withOpacity(0.3),
+                        spreadRadius: 1.0,
+                        blurRadius: 3.0,
+                        offset: Offset(0, 1))
                     : BoxShadow(
-                        color: Color(0xff12FFFF).withOpacity(0.3),
-                        spreadRadius: 4.0,
-                        blurRadius: 9.0,
+                        color: Color(0xff12FFFF).withOpacity(0.1),
+                        spreadRadius: 2.0,
+                        blurRadius: 5.0,
                         offset: Offset(0, 2), // changes position of shadow
                       ), // changes position of shadow
               ],

@@ -40,17 +40,17 @@ class _UserStudentState extends State<UserStudent> {
       setState(() {
         visibility = true;
       });
-      final image = await await FilePicker.platform
+      final currentimage = await FilePicker.platform
           .pickFiles(allowMultiple: false, type: FileType.image);
-      if (image == null) return;
-      final imageTemporary = image.files[0];
+      if (currentimage == null) return;
+      final imageTemporary = currentimage.files[0];
       setState(() {
-        this.image = imageTemporary;
+        image = imageTemporary;
       });
-      final url = await Upload().uploadProfilepic(image);
+      final url = await Upload().uploadProfilepic(imageTemporary);
       setState(() {
         imageurl = url;
-        visibility = true;
+        visibility = false;
       });
       Provider.of<SchoolProvider>(context, listen: false)
           .addStudentInformation(key: 'Profile_Pic', value: url);
@@ -77,6 +77,7 @@ class _UserStudentState extends State<UserStudent> {
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
+    TextEditingController(),
   ];
   @override
   void initState() {
@@ -95,7 +96,6 @@ class _UserStudentState extends State<UserStudent> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('ADD Student'),
       ),
       body: width >= height
@@ -192,7 +192,7 @@ class _UserStudentState extends State<UserStudent> {
                             visibility = false;
                           });
                         },
-                        color: Colors.indigo,
+                        color: Color(0xff02242C),
                       ),
                     )
                   ],
@@ -242,7 +242,10 @@ class _UserStudentState extends State<UserStudent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CupertinoButton(
-                        child: Text('ADD'),
+                        child: Text(
+                          'ADD',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: () async {
                           setState(() {
                             visibility = true;
@@ -295,7 +298,7 @@ class _UserStudentState extends State<UserStudent> {
                             visibility = false;
                           });
                         },
-                        color: Colors.indigo,
+                        color: Color(0xff02242C),
                       ),
                     )
                   ],
@@ -303,7 +306,9 @@ class _UserStudentState extends State<UserStudent> {
                 Visibility(
                     visible: visibility,
                     child: Center(
-                      child: CircularProgressIndicator(color: Colors.green),
+                      child: CircularProgressIndicator(
+                        color: Color(0xff02242C),
+                      ),
                     ))
               ],
             ),

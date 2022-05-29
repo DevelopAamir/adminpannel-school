@@ -10,7 +10,6 @@ class AddClass extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('Add Class'),
       ),
       body: Column(
@@ -22,7 +21,7 @@ class AddClass extends StatelessWidget {
                 controller: classController,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
-                  hintText: 'Enter Class Name',
+                  hintText: 'Enter Class',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -37,7 +36,7 @@ class AddClass extends StatelessWidget {
                 controller: sectionsController,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
-                  hintText: 'Enter Class Name',
+                  hintText: 'Enter Section',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -49,7 +48,7 @@ class AddClass extends StatelessWidget {
             height: 20,
           ),
           CupertinoButton(
-              color: Color(0xff12B081),
+              // color: Color(0xff12B081),
               child: Text('Next'),
               onPressed: () async {
                 await Upload().addNewClass(context, classController.text.trim(),

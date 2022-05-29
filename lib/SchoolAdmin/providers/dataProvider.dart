@@ -1,5 +1,6 @@
 import 'package:adminpannel/SchoolAdmin/Maps/Map.dart';
 import 'package:adminpannel/SchoolAdmin/objects/schoolInfo.dart';
+import 'package:adminpannel/Storage/storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,11 +11,29 @@ class SchoolProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<String> feeCatogaries = ['Select'];
+  List<String> examNames = ['Select'];
+  var role;
+  List permissions = [];
   Map student = Maps().student;
-  Map staff = Maps().staff;
+  Map<String, dynamic> staff = Maps().staff;
   Map admin = Maps().admin;
   Map<String, dynamic> attendanceRegister = Maps().attendance;
   Map<String, Object?> attendanceToBeSend = {};
+
+  getFeesTypes(response) {
+    if (!feeCatogaries.contains(response)) {
+      feeCatogaries.add(response);
+      notifyListeners();
+    }
+  }
+
+  getExamNames(response) {
+    if (!examNames.contains(response)) {
+      examNames.add(response);
+      notifyListeners();
+    }
+  }
 
   addStudentInformation({required String key, required value}) {
     student['Information'].update(key.toString(), (a) => value.toString());
@@ -50,6 +69,16 @@ class SchoolProvider with ChangeNotifier {
 
   setStudentRegister(response) {
     attendanceToBeSend.addAll(response);
+    notifyListeners();
+  }
+
+  setPermission(permission) {
+    permissions = permission;
+    notifyListeners();
+  }
+
+  getRole(permission) {
+    role = permission;
     notifyListeners();
   }
 
@@ -99,6 +128,22 @@ class SchoolProvider with ChangeNotifier {
       id: response.data()!["Information"]["ID"],
       userName: response.data()!["Information"]["UserName"],
       date: response.data()!['Information']['Subscription_Date'],
+      logo: response.data()!["Information"]["Profile_Pic"],
+    );
+    info = information;
+    notifyListeners();
+  }
+
+  getStaffInfo(DocumentSnapshot<Map<String, dynamic>> response) async {
+    var id = await Store().getData('id');
+    var schoolName = await Store().getData('schoolName');
+
+    final information = SchoolInfo(
+      enrollment: '',
+      name: schoolName.toString(),
+      id: id.toString(),
+      userName: response.data()!["Information"]["Name"],
+      date: '',
       logo: response.data()!["Information"]["Profile_Pic"],
     );
     info = information;

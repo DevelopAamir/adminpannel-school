@@ -1,6 +1,8 @@
 import 'package:adminpannel/Agora/agora.dart';
 import 'package:adminpannel/SchoolAdmin/Connector/uploadData.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
+import 'package:agora_rtc_engine/rtc_channel.dart';
+import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -44,7 +46,6 @@ class _AssignsState extends State<Assigns> {
     return Scaffold(
       backgroundColor: Color(0xffF5FFFD),
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('Assign'),
       ),
       body: Center(
@@ -54,7 +55,7 @@ class _AssignsState extends State<Assigns> {
           children: [
             Textfilds(
               controllers: _titlecontroller,
-              titles: 'Title',
+              titles: 'Subject',
             ),
             Textfilds(
               controllers: _chapter,
@@ -143,7 +144,6 @@ class _AssignsState extends State<Assigns> {
               child: InkWell(
                 onTap: () async {
                   if (_titlecontroller.text.isNotEmpty &&
-                      file != null &&
                       _submissionDate.text.isNotEmpty) {
                     setState(() {
                       progress = true;
@@ -288,8 +288,7 @@ class _AssignStudyMaterialState extends State<AssignStudyMaterial> {
     return Scaffold(
       backgroundColor: Color(0xffF5FFFD),
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
-        title: Text('Assign'),
+        title: Text('Study Material'),
       ),
       body: Center(
         child: Column(
@@ -312,44 +311,6 @@ class _AssignStudyMaterialState extends State<AssignStudyMaterial> {
               controllers: _discription,
               titles: 'Discription',
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Container(
-            //     height: 50,
-            //     width: 400,
-            //     child: Center(
-            //       child: TextField(
-            //         onTap: () async {
-            //           await _selectDate(context);
-            //         },
-            //         textAlign: TextAlign.start,
-            //         controller: _submissionDate,
-            //         decoration: InputDecoration(
-            //           enabledBorder: InputBorder.none,
-            //           focusedBorder: OutlineInputBorder(
-            //             borderSide:
-            //                 const BorderSide(color: Colors.white, width: 2.0),
-            //             borderRadius: BorderRadius.circular(25.0),
-            //           ),
-            //           suffixIcon: Padding(
-            //             padding: const EdgeInsets.only(right: 10.0),
-            //             child: Icon(Icons.calendar_month),
-            //           ),
-
-            //           fillColor: Color.fromARGB(255, 223, 219, 219),
-            //           filled: true,
-            //           hintText: 'Submission Date',
-            //           // labelText: "Fill Details",
-            //           labelStyle:
-            //               TextStyle(color: Colors.black54, fontSize: 15),
-            //           border: OutlineInputBorder(
-            //             borderRadius: BorderRadius.circular(20.0),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
@@ -511,7 +472,6 @@ class _AssignExamState extends State<AssignExam> {
     return Scaffold(
       backgroundColor: Color(0xffF5FFFD),
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('Assign'),
       ),
       body: Center(
@@ -1059,31 +1019,186 @@ class _AssignLiveClassState extends State<AssignLiveClass> {
                     setState(() {
                       progress = true;
                     });
+                    AgoraSDK().createClass(_titlecontroller.text);
+                    // await AgoraIntialization().agorainit().then((value) async {
+                    //   await Upload().addLiveClass(
+                    //       context: context,
+                    //       data: {
+                    //         'title': _titlecontroller.text,
+                    //         'date': _examDate.text,
+                    //         'Date_Added': DateFormat('yyyy-MM-dd hh-mm')
+                    //             .format(DateTime.now()),
+                    //         'status': 'pending',
+                    //         'Host': _auth.currentUser!.email,
+                    //         'channelid': value,
+                    //       },
+                    //       class_: widget.class_,
+                    //       section: widget.section);
+                    // });
 
-                    await Upload().addLiveClass(
-                        context: context,
-                        data: {
-                          'title': _titlecontroller.text,
-                          'date': _examDate.text,
-                          'Date_Added':
-                              DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                          'status': 'pending',
-                          'Host': _auth.currentUser!.email,
-                        },
-                        class_: widget.class_,
-                        section: widget.section);
-                    AgoraSDK(
-                      channel: widget.class_ +
-                          widget.section +
-                          _titlecontroller.text,
-                      class_: widget.class_,
-                      section: widget.section,
-                    );
+                    // AgoraSDK(
+                    //   channel: widget.class_ +
+                    //       widget.section +
+                    //       _titlecontroller.text,
+                    //   class_: widget.class_,
+                    //   section: widget.section,
+                    // );
                     Fluttertoast.showToast(
                         msg: 'Live Class Added Sucessfully',
                         timeInSecForIosWeb: 3,
                         webShowClose: true);
                     _titlecontroller.clear();
+
+                    setState(() {
+                      progress = false;
+                      file = null;
+                    });
+                  } else {
+                    Fluttertoast.showToast(
+                      msg: 'Please Fill All Filled',
+                      webBgColor: "linear-gradient(to right,#FF0000,#FF6347)",
+                    );
+                  }
+                },
+                child: Container(
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Send',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        if (progress)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white),
+                            )),
+                          )
+                      ],
+                    ),
+                  ),
+                  height: 40,
+                  width: 400,
+                  color: Color(0xff78F5DF),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+////////////
+class AssignNotice extends StatefulWidget {
+  final class_;
+  final section;
+  const AssignNotice({Key? key, this.class_, this.section}) : super(key: key);
+
+  @override
+  State<AssignNotice> createState() => _AssignNoticeState();
+}
+
+class _AssignNoticeState extends State<AssignNotice> {
+  TextEditingController _titlecontroller = TextEditingController();
+  TextEditingController _chapter = TextEditingController();
+  TextEditingController _discription = TextEditingController();
+  TextEditingController _subjectcontroller = TextEditingController();
+
+  var file;
+  bool progress = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xffF5FFFD),
+      appBar: AppBar(
+        title: Text('Study Material'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Textfilds(
+              controllers: _titlecontroller,
+              titles: 'Title',
+            ),
+            Textfilds(
+              controllers: _discription,
+              titles: 'Discription',
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () async {
+                    await Upload().uploadFile(context).then((value) => setState(
+                          () => file = value,
+                        ));
+                  },
+                  child: Container(
+                    child: Center(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            file == null
+                                ? 'Attachments'
+                                : file.toString().split('/').last,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.attachment,
+                            color: Colors.grey,
+                          )
+                        ],
+                      ),
+                    ),
+                    height: 40,
+                    width: 400,
+                    color: Color.fromARGB(255, 223, 219, 219),
+                  ),
+                )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () async {
+                  if (_titlecontroller.text.isNotEmpty && file != null) {
+                    setState(() {
+                      progress = true;
+                    });
+                    await Upload().addNotice(
+                        context: context,
+                        data: {
+                          'title': _titlecontroller.text,
+                          'Description': _discription.text,
+                          'Attachment': file,
+                          'Date_Added':
+                              DateFormat('yyyy-MM-dd').format(DateTime.now())
+                        },
+                        class_: widget.class_,
+                        section: widget.section);
+                    Fluttertoast.showToast(
+                        msg: 'Notice Added Sucessfully',
+                        timeInSecForIosWeb: 3,
+                        webShowClose: true);
+                    _titlecontroller.clear();
+                    _discription.clear();
+                    _subjectcontroller.clear();
+                    _chapter.clear();
 
                     setState(() {
                       progress = false;

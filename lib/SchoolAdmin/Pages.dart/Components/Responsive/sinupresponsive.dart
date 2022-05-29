@@ -123,20 +123,35 @@ class Details extends StatelessWidget {
               },
             ),
             Textfield(
-              text: 'Profile Picture',
+              text: userType == 'student'
+                  ? 'Enter The Fee (Whole Year)'
+                  : 'Enter The Salary Per month',
               icon: Icons.password,
               obsecuewtext: false,
               controller: controllers[8],
-              onChange: (c) async {
-                final url = await Upload().uploadProfilepic(image);
-
+              onChange: (c) {
                 userType == 'student'
                     ? Provider.of<SchoolProvider>(context, listen: false)
-                        .addStudentInformation(key: 'Profile_Pic', value: url)
+                        .addStudentInformation(key: 'Fee', value: c)
                     : Provider.of<SchoolProvider>(context, listen: false)
-                        .addStaffInformation(key: 'Profile_Pic', value: url);
+                        .addStaffInformation(key: 'Salary', value: c);
               },
             ),
+            // Textfield(
+            //   text: 'Profile Picture',
+            //   icon: Icons.password,
+            //   obsecuewtext: false,
+            //   controller: controllers[8],
+            //   onChange: (c) async {
+            //     final url = await Upload().uploadProfilepic(image);
+
+            //     userType == 'student'
+            //         ? Provider.of<SchoolProvider>(context, listen: false)
+            //             .addStudentInformation(key: 'Profile_Pic', value: url)
+            //         : Provider.of<SchoolProvider>(context, listen: false)
+            //             .addStaffInformation(key: 'Profile_Pic', value: url);
+            //   },
+            // ),
           ],
         ),
       ),

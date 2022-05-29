@@ -106,7 +106,7 @@ class StartPage extends StatelessWidget {
                           width: double.infinity,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Color(0xff005b96),
+                            color: Color(0xff02242C),
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),

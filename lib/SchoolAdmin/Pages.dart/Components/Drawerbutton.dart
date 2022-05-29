@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class DrawerButton extends StatelessWidget {
   final String texts;
-  final String page;
   final IconData icon;
+  final page;
+
   const DrawerButton({
     Key? key,
     required this.texts,
@@ -17,7 +18,8 @@ class DrawerButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           print('tapped');
-          Navigator.pushNamed(context, page);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => page));
         },
         child: Card(
           elevation: 0.5,
@@ -29,7 +31,7 @@ class DrawerButton extends StatelessWidget {
                 Icon(
                   icon,
                   size: 20,
-                  color: Color(0xff1DB691),
+                  color: Color(0xff02242C),
                 ),
                 SizedBox(
                   width: 10,

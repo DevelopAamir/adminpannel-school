@@ -16,10 +16,12 @@ class Maps {
       'Father_No': '',
       'Mother_Name': '',
       'Mother_No': '',
+      'Fee': '',
     },
   };
   Map<String, dynamic> staff = {
     'Information': {
+      'Salary': '',
       'Profile_Pic': '',
       'Name': '',
       'Temp_Address': '',

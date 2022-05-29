@@ -31,32 +31,39 @@ class _AnimatedScreenState extends State<AnimatedScreen> {
           items: imageList.map((imgUrl) {
             return Builder(
               builder: (BuildContext context) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffEDFDFF),
-                    borderRadius: BorderRadiusDirectional.circular(8),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          imgUrl,
-                        ),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Upload Your Data Here',
-                      style: TextStyle(fontSize: 30, color: Colors.white),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'From Owner',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
+                    Container(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        color: Color.fromARGB(255, 249, 254, 255),
+                        borderRadius: BorderRadiusDirectional.circular(2),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              imgUrl,
+                            ),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                  ],
                 );
               },
             );
           }).toList(),
           options: CarouselOptions(
-            height: 120,
-            aspectRatio: 16 / 12,
+            height: 300,
+            aspectRatio: 16 / 14,
             viewportFraction: 0.9,
             initialPage: 0,
             enableInfiniteScroll: true,

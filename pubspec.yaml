@@ -50,6 +50,10 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.4
   percent_indicator: ^4.0.0
+  rive: ^0.8.4
+  screenshot: ^1.2.3
+  pdf: ^3.8.1
+  flutter_spinkit: ^5.1.0
 
   
 

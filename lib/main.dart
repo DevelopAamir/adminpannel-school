@@ -37,15 +37,15 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         theme: ThemeData(
-          primaryColor: Colors.green,
-          primarySwatch: Colors.green,
+          primaryColor: Color(0xff02242C),
+          primarySwatch: Palette.kToDark,
         ),
         initialRoute: '/',
         routes: {
           '/': (context) => const Landingpage(),
           '/Login': (context) => const Login(),
           '/HomePage': (context) => const HomePage(),
-          '/ProfilePage': (context) => const Profilepage(),
+          '/HomePage/ProfilePage': (context) => const Profilepage(),
           '/Attendance': (context) => const AllAttendance(),
           '/Notice': (context) => const Notice(),
           '/Leavehistory': (context) => const Leavehistory(),
@@ -53,7 +53,7 @@ Future<void> main() async {
           '/Staffs': (context) => const Staffs(),
           '/Calender': (context) => const Calender(),
           '/Attendance/Takeattendance': (context) => const TakeSatt(),
-          '/Media': (context) => Medias(),
+          '/HomePage/Media': (context) => Medias(),
           '/Addresult': (context) => Addresult(),
         },
       ),
@@ -250,4 +250,42 @@ class _DesideState extends State<Deside> {
             ),
           );
   }
+}
+
+class Palette {
+  static const MaterialColor kToDark = const MaterialColor(
+    0xff59DBD3,
+    const <int, Color>{
+      50: const Color(
+        0xff59DBD3,
+      ), //10%
+      100: const Color(
+        0xff59DBD3,
+      ), //20%
+      200: const Color(
+        0xff59DBD3,
+      ), //30%
+      300: const Color(
+        0xff59DBD3,
+      ), //40%
+      400: const Color(
+        0xff59DBD3,
+      ), //50%
+      500: const Color(
+        0xff59DBD3,
+      ), //60%
+      600: const Color(
+        0xff59DBD3,
+      ), //70%
+      700: const Color(
+        0xff59DBD3,
+      ), //80%
+      800: const Color(
+        0xff59DBD3,
+      ), //90%
+      900: const Color(
+        0xff59DBD3,
+      ), //100%
+    },
+  );
 }

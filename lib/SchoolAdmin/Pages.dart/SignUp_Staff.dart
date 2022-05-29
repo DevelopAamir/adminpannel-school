@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:adminpannel/SchoolAdmin/Connector/addStudent.dart';
 import 'package:adminpannel/SchoolAdmin/Connector/uploadData.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Responsive/sinupresponsive.dart';
+import 'package:adminpannel/SchoolAdmin/ProgressIndicators.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class SignupStaff extends StatefulWidget {
@@ -70,7 +68,6 @@ class _SignupStaffState extends State<SignupStaff> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('ADD Staff'),
       ),
       body: width >= height
@@ -145,7 +142,10 @@ class _SignupStaffState extends State<SignupStaff> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CupertinoButton(
-                    child: Text('ADD'),
+                    child: Text(
+                      'ADD',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () async {
                       Provider.of<SchoolProvider>(context, listen: false)
                           .addStaffInformation(
@@ -186,7 +186,7 @@ class _SignupStaffState extends State<SignupStaff> {
                         spin = false;
                       });
                     },
-                    color: Colors.indigo,
+                    color: Color(0xff02242C),
                   ),
                 ),
               ],
@@ -219,7 +219,7 @@ class _SignupStaffState extends State<SignupStaff> {
                               height: 50,
                               width: 50,
                               decoration: BoxDecoration(
-                                  color: Colors.pink,
+                                  color: Color(0xff02242C),
                                   borderRadius: BorderRadius.circular(50)),
                               child: Image.network(
                                 imageurl,
@@ -245,7 +245,10 @@ class _SignupStaffState extends State<SignupStaff> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CupertinoButton(
-                        child: Text('ADD'),
+                        child: Text(
+                          'ADD',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: () async {
                           setState(() {
                             spin = true;
@@ -282,19 +285,12 @@ class _SignupStaffState extends State<SignupStaff> {
                             spin = false;
                           });
                         },
-                        color: Colors.indigo,
+                        color: Color(0xff02242C),
                       ),
                     )
                   ],
                 ),
-                spin
-                    ? Center(
-                        child: Visibility(
-                            visible: spin,
-                            child:
-                                CircularProgressIndicator(color: Colors.green)),
-                      )
-                    : Container()
+                indicator(spin)
               ],
             ),
     );

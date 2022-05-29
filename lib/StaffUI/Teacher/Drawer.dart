@@ -1,3 +1,4 @@
+import 'package:adminpannel/StaffUI/Teacher/Class.dart';
 import 'package:adminpannel/StaffUI/Teacher/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,12 @@ class MainDrawerstf extends StatelessWidget {
                       Button(
                         widget: Staffs(),
                         text: 'Help and feedback',
+                        icons: Icons.question_answer,
+                        color: Color(0xff355c7d),
+                      ),
+                      Button(
+                        widget: Classes(),
+                        text: 'Check Animation',
                         icons: Icons.question_answer,
                         color: Color(0xff355c7d),
                       ),

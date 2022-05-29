@@ -18,7 +18,7 @@ class Contact extends StatelessWidget {
                   height: 8,
                   color: Color(0xff179F76),
                 ),
-                Image.asset('images/Gradients.png'),
+                Image.asset('images/fourthpage.png'),
                 Column(
                   children: [
                     Padding(
@@ -37,7 +37,8 @@ class Contact extends StatelessWidget {
                                     Text(
                                       'Contacts',
                                       style: TextStyle(
-                                          color: Color(0xff179F76),
+                                          color:
+                                              Color.fromARGB(255, 20, 24, 22),
                                           fontSize: 25),
                                     ),
                                     Padding(
@@ -54,7 +55,7 @@ class Contact extends StatelessWidget {
                               ),
                               height: 221,
                               decoration: BoxDecoration(
-                                color: Color(0xffDEFFF9),
+                                color: Colors.transparent,
                                 borderRadius: BorderRadius.circular(29),
                               ),
                             ),

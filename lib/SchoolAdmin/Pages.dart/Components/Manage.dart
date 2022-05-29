@@ -5,11 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../studentspage.dart';
+import '../../../StaffUI/Teacher/Class.dart';
+import '../Media.dart';
+import 'Cards.dart';
 
 class ManageCard extends StatelessWidget {
+  final List<int> total;
   ManageCard({
     Key? key,
+    required this.total,
   }) : super(key: key);
   final firestore = FirebaseFirestore.instance;
   @override
@@ -30,33 +34,60 @@ class ManageCard extends StatelessWidget {
                   Card(
                     elevation: 0.0,
                     child: Text(
-                      'Management',
+                      'Acadmics',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AddClass();
-                      }));
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          'Add Class',
-                          style: TextStyle(color: Colors.green),
-                        ),
-                        Icon(
-                          Icons.add,
-                          size: 20,
-                          color: Colors.green,
-                        ),
-                      ],
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                          .role ==
+                      null)
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return AddClass();
+                        }));
+                      },
+                      child: Row(
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                'Add Class',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.add,
+                            size: 20,
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
                     ),
+                ],
+              ),
+              Row(
+                children: [
+                  Cards(
+                    text: 'Total Students',
+                    total: total[0].toString(),
+                    color: Color(0xffFFA24B),
+                  ),
+                  Cards(
+                    text: 'Total Staffs',
+                    total: total[1].toString(),
+                    color: Color(0xff4BFF93),
+                  ),
+                  Cards(
+                    text: 'Classes',
+                    total: total[2].toString(),
+                    color: Color(0xff4BC9FF),
                   ),
                 ],
               ),
@@ -84,26 +115,50 @@ class ManageCard extends StatelessWidget {
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: ((context, index) {
                                 return snapshot.hasData
-                                    ? Cards1(
-                                        color: Color(0xffFFF7CD),
-                                        text: snapshot.data!.docs[index]
-                                                ['class'] +
-                                            ' ' +
-                                            snapshot.data!.docs[index]
-                                                ['section'],
-                                        onTap: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return Academics(
-                                              class_: snapshot.data!.docs[index]
-                                                  ['class'],
-                                              section: snapshot
-                                                  .data!.docs[index]['section'],
-                                            );
-                                          }));
-                                        },
-                                      )
+                                    ? StreamBuilder(
+                                        stream: firestore
+                                            .collection(schoolName)
+                                            .doc('Academics')
+                                            .collection(snapshot.data!
+                                                    .docs[index]['class'] +
+                                                snapshot.data!.docs[index]
+                                                    ['section'])
+                                            .snapshots(),
+                                        builder: (context,
+                                            AsyncSnapshot<QuerySnapshot> snap) {
+                                          bool seen = false;
+                                          if (snap.hasData) {
+                                            for (var d in snap.data!.docs) {
+                                              seen = d['Seen'];
+                                              if (seen == true) break;
+                                            }
+                                          }
+                                          return Cards1(
+                                            color: seen
+                                                ? Colors.green.shade100
+                                                : Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                            text: "class: " +
+                                                snapshot.data!.docs[index]
+                                                    ['class'] +
+                                                '\n' +
+                                                "Section: " +
+                                                snapshot.data!.docs[index]
+                                                    ['section'],
+                                            onTap: () {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                                return Academics(
+                                                  class_: snapshot.data!
+                                                      .docs[index]['class'],
+                                                  section: snapshot.data!
+                                                      .docs[index]['section'],
+                                                );
+                                              }));
+                                            },
+                                          );
+                                        })
                                     : Container();
                               }))
                           : Container(),
@@ -158,21 +213,39 @@ class Cards1 extends StatelessWidget {
           ),
           color: color,
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(10.0),
             child: Container(
-              height: 80,
-              width: 100,
+              height: 120,
+              width: 120,
               child: Center(
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Color(0x469FA2F1),
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 25,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        text,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 5, 5, 5),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Icon(
+                        Icons.class__outlined,
+                        size: 50,
+                        color: Color(0xff18E2B2),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

@@ -31,7 +31,6 @@ class _CalenderState extends State<Calender> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text(' Calender'),
       ),
     );

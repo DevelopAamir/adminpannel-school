@@ -1,5 +1,6 @@
 import 'package:adminpannel/SchoolAdmin/Connector/Login.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Textfiel.dart';
+import 'package:adminpannel/SchoolAdmin/ProgressIndicators.dart';
 
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _LoginState extends State<Login> {
             children: [
               Divider(
                 height: 8,
-                color: Color(0xff179F76),
+                color: Color(0xff02242C),
               ),
               Spacer(),
               Container(
@@ -64,11 +65,11 @@ class _LoginState extends State<Login> {
                           height: 8,
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             setState(() {
                               visibility = true;
                             });
-                            LogIn()
+                            await LogIn()
                                 .login(email.text.trim(), password.text.trim(),
                                     context)
                                 .then((value) {});
@@ -102,13 +103,7 @@ class _LoginState extends State<Login> {
               Spacer(),
             ],
           ),
-          Visibility(
-              visible: visibility,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.green,
-                ),
-              ))
+          indicator(visibility)
         ],
       ),
     );

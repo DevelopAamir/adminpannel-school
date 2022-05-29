@@ -6,6 +6,7 @@ import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Cards.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Drawer1.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Manage.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/animatedscreen.dart';
+import 'package:adminpannel/SchoolAdmin/Pages.dart/Login.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Media.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Signup.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Subscription.dart';
@@ -29,14 +30,33 @@ class _HomePageState extends State<HomePage> {
     return token;
   }
 
+  int totalStudent = 0;
+  int tatalStaff = 0;
+  int totalClass = 0;
+
+  getTotal() async {
+    var totalSt = await GetData().getTotalStudent(context);
+    var totalS = await GetData().getTotalStaff(context);
+    var totalCl = await GetData().getClasses(context);
+
+    setState(() {
+      this.tatalStaff = totalS;
+      this.totalStudent = totalSt;
+      this.totalClass = totalCl;
+    });
+  }
+
   @override
   void initState() {
-    getToken(context).then((value) {
+    getToken(context).then((value) async {
       if (value == null) {
-        Navigator.pushNamed(context, '/Login');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Login()));
       } else {
-        LogIn().getData(context);
-        GetData().getData(context);
+        await LogIn().getData(context);
+        await GetData().getData(context).then((value) async {
+          await getTotal();
+        });
       }
     });
 
@@ -49,27 +69,48 @@ class _HomePageState extends State<HomePage> {
       // drawer: MainDrawer(),
       backgroundColor: Colors.white,
 
+      drawer:
+          MediaQuery.of(context).size.width < MediaQuery.of(context).size.height
+              ? Drawer(child: Drawer1())
+              : null,
       body: SafeArea(
         child: Stack(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Drawer1(),
-                VerticalDivider(
-                  color: Colors.black,
-                  thickness: 0.2,
-                ),
+                if (MediaQuery.of(context).size.width >=
+                    MediaQuery.of(context).size.height)
+                  Drawer1(),
+                if (MediaQuery.of(context).size.width >=
+                    MediaQuery.of(context).size.height)
+                  VerticalDivider(
+                    color: Colors.black,
+                    thickness: 0.2,
+                  ),
                 Expanded(
                   child: ListView(
                     children: [
                       Align(
                         alignment: Alignment.topCenter,
                         child: Container(
-                          height: 55,
+                          // height: 55,
                           child: AppBar(
-                            elevation: 0,
                             automaticallyImplyLeading: false,
+                            leading: MediaQuery.of(context).size.width <
+                                    MediaQuery.of(context).size.height
+                                ? Builder(
+                                    builder:
+                                        (context) => // Ensure Scaffold is in context
+                                            IconButton(
+                                                icon: Icon(Icons.menu,
+                                                    color: Colors.green),
+                                                onPressed: () =>
+                                                    Scaffold.of(context)
+                                                        .openDrawer()),
+                                  )
+                                : null,
+                            elevation: 0,
                             actions: [
                               GestureDetector(
                                 onTap: () {
@@ -119,45 +160,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      AnimatedScreen(),
                       Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          ManageCard(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Cards(
-                                navigate: Subscribes(),
-                                text: 'Total Students',
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Cards(
-                                navigate: Medias(),
-                                text: 'Media',
-                              ),
-                            ],
+                          ManageCard(
+                            total: [totalStudent, tatalStaff, totalClass],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Cards(
-                                text: 'Notifications',
-                                navigate: Medias(),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Cards(
-                                navigate: Medias(),
-                                text: 'Total staff',
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                          AnimatedScreen(),
                           BottomBar()
                         ],
                       ),
@@ -166,6 +175,45 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            // if (MediaQuery.of(context).size.width <
+            //     MediaQuery.of(context).size.height)
+            //   Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: Container(
+            //       height: double.infinity,
+            //       width: 50,
+            //       child: Stack(
+            //         children: [
+            //           Container(
+            //             height: double.infinity,
+            //             width: 15,
+            //             color: Color.fromARGB(255, 12, 139, 19),
+            //           ),
+            //           Align(
+            //             alignment: Alignment.bottomRight,
+            //             child: Container(
+            //               width: 50,
+            //               height: 40,
+            //               decoration: BoxDecoration(
+            //                   color: Color.fromARGB(255, 12, 139, 19),
+            //                   borderRadius: BorderRadius.only(
+            //                       topRight: Radius.circular(5),
+            //                       bottomRight: Radius.circular(5))),
+            //               child: Align(
+            //                 alignment: Alignment.centerRight,
+            //                 child: IconButton(
+            //                     onPressed: () {
+            //                       Scaffold.of(context).openDrawer();
+            //                     },
+            //                     icon: Icon(Icons.navigate_next,
+            //                         color: Colors.white)),
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ),

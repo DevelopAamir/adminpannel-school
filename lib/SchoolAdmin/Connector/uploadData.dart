@@ -55,6 +55,12 @@ class Upload {
           .collection(DateTime.now().year.toString())
           .doc(id)
           .set(data);
+      await firestore
+          .collection(schoolName)
+          .doc('Staff')
+          .collection(DateTime.now().year.toString())
+          .doc(id)
+          .set(data);
     } on FirebaseException catch (e) {
       print(e.message);
     }
@@ -90,7 +96,7 @@ class Upload {
   Future uploadFile(context) async {
     final file = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['Pdf', 'jpg', 'docx', 'mp4']);
+        allowedExtensions: ['Pdf', 'jpg', 'docx', 'mp4', 'png']);
     var downloadUrl;
     if (file != null) {
       var contentType;
@@ -135,16 +141,14 @@ class Upload {
                               return Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Center(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(15.0),
                                         child: LinearPercentIndicator(
                                           onAnimationEnd: () {
                                             Navigator.pop(context);
                                           },
-                                          width: 200.0,
                                           lineHeight: 14.0,
                                           percent:
                                               snapshort.data!.bytesTransferred /
@@ -211,6 +215,17 @@ class Upload {
     }
   }
 
+  Future getMediaLink(path) async {
+    final storage = FirebaseStorage.instance;
+    var link;
+    try {
+      link = await storage.ref(path).getDownloadURL();
+    } catch (e) {
+      print(e);
+    }
+    return link;
+  }
+
   addNewClass(context, className, sectionName) async {
     final school =
         Provider.of<SchoolProvider>(context, listen: false).info.name;
@@ -234,6 +249,12 @@ class Upload {
         .doc('Academics')
         .collection(class_ + section)
         .doc('HomeWorks')
+        .set({'Seen': false});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('HomeWorks')
         .collection(DateTime.now().year.toString())
         .doc(DateTime.now().toString())
         .set(data);
@@ -247,6 +268,31 @@ class Upload {
         .doc('Academics')
         .collection(class_ + section)
         .doc('StudyMaterials')
+        .set({'Seen': false});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('StudyMaterials')
+        .collection(DateTime.now().year.toString())
+        .doc(DateTime.now().toString())
+        .set(data);
+  }
+
+  addNotice({required data, context, class_, section}) async {
+    final school =
+        Provider.of<SchoolProvider>(context, listen: false).info.name;
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Notics')
+        .set({'Seen': false});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Notices')
         .collection(DateTime.now().year.toString())
         .doc(DateTime.now().toString())
         .set(data);
@@ -260,12 +306,18 @@ class Upload {
         .doc('Academics')
         .collection(class_ + section)
         .doc('Exams')
+        .set({'Seen': false});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Exams')
         .collection(DateTime.now().year.toString())
         .doc(DateTime.now().toString())
         .set(data);
   }
 
-  addResult({required data, context, class_, section}) async {
+  Future addResult({required data, context, class_, section}) async {
     final school =
         Provider.of<SchoolProvider>(context, listen: false).info.name;
     await firestore
@@ -273,14 +325,57 @@ class Upload {
         .doc('Academics')
         .collection(class_ + section)
         .doc('Results')
+        .set({'Seen': false});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Results')
         .collection(DateTime.now().year.toString())
-        .doc(DateTime.now().toString())
+        .doc(data['Info']['ExamName'] + data['Info']['rollno'])
         .set(data);
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Results')
+        .collection(DateTime.now().year.toString())
+        .doc(data['Info']['ExamName'] + data['Info']['rollno'])
+        .collection('hidden')
+        .doc('hidden')
+        .set({'hidden': true});
+    await firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Results')
+        .collection(DateTime.now().year.toString())
+        .doc(data['Info']['ExamName'] + 'Positions')
+        .get()
+        .then((value) {
+      if (value.exists) {
+        List mark = value['Positions'];
+        mark.add(
+            {'gpa': data['Info']['gpa'], 'roll_no': data['Info']['rollno']});
+        value.reference.update({'Positions': mark});
+      } else {
+        List mark = [];
+        mark.add(
+            {'gpa': data['Info']['gpa'], 'roll_no': data['Info']['rollno']});
+        value.reference.set({'Positions': mark});
+      }
+    });
   }
 
   addRoutine({required data, context, class_, section}) async {
     final school =
         Provider.of<SchoolProvider>(context, listen: false).info.name;
+    firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('Routine')
+        .set({'Seen': false});
     firestore
         .collection(school)
         .doc('Academics')
@@ -310,6 +405,12 @@ class Upload {
             .doc('Academics')
             .collection(class_ + section)
             .doc('Attendance')
+            .set({'Seen': false});
+        firestore
+            .collection(school)
+            .doc('Academics')
+            .collection(class_ + section)
+            .doc('Attendance')
             .collection(DateTime.now().year.toString())
             .doc('daily')
             .collection(
@@ -325,8 +426,8 @@ class Upload {
         Provider.of<SchoolProvider>(context, listen: false).info.name;
     firestore
         .collection(school)
-        .doc('Academics')
-        .collection(class_ + section)
+        // .doc('Academics')
+        // .collection(class_ + section)
         .doc('StaffAttendance')
         .collection(DateTime.now().year.toString())
         .doc('daily')
@@ -336,8 +437,14 @@ class Upload {
       if (value.docs.isEmpty) {
         firestore
             .collection(school)
-            .doc('Academics')
-            .collection(class_ + section)
+            // .doc('Academics')
+            // .collection(class_ + section)
+            .doc('StaffAttendance')
+            .set({'Seen': false});
+        firestore
+            .collection(school)
+            // .doc('Academics')
+            // .collection(class_ + section)
             .doc('StaffAttendance')
             .collection(DateTime.now().year.toString())
             .doc('daily')
@@ -352,6 +459,12 @@ class Upload {
   addLiveClass({required data, context, class_, section}) async {
     final school =
         Provider.of<SchoolProvider>(context, listen: false).info.name;
+    firestore
+        .collection(school)
+        .doc('Academics')
+        .collection(class_ + section)
+        .doc('LiveClass')
+        .set({'Seen': false});
     firestore
         .collection(school)
         .doc('Academics')

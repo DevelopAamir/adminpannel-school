@@ -31,7 +31,6 @@ class _LeavehistoryState extends State<Leavehistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff12B081),
         title: Text('Leave Histoy'),
       ),
       body: SingleChildScrollView(

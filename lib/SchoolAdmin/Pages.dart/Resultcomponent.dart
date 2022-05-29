@@ -1,8 +1,13 @@
+import 'package:adminpannel/SchoolAdmin/Pages.dart/AddResult.dart';
 import 'package:flutter/material.dart';
 
 class Resultcard extends StatelessWidget {
+  final index;
+  final ResultSubjectObject data;
   const Resultcard({
     Key? key,
+    required this.data,
+    this.index,
   }) : super(key: key);
 
   @override
@@ -13,95 +18,113 @@ class Resultcard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '1',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          // Container(
-          //   height: 70,
-          //   child: VerticalDivider(
-          //     color: Colors.black,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'English',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          // Container(
-          //   height: 70,
-          //   child: VerticalDivider(
-          //     color: Colors.black,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '4',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          // Container(
-          //   height: 70,
-          //   child: VerticalDivider(
-          //     color: Colors.black,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          Expanded(
+            flex: 1,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    '70',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    width: 50,
-                    height: 20,
-                    child: VerticalDivider(
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    '20',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
+              child: Text(
+                index,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          // Container(
-          //   height: 70,
-          //   child: VerticalDivider(
-          //     color: Colors.black,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '90',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          Container(
+            height: 60,
+            child: VerticalDivider(
+              color: Colors.black,
             ),
           ),
-          // Container(
-          //   height: 70,
-          //   child: VerticalDivider(
-          //     color: Colors.black,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '3.4',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                data.subject,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            height: 60,
+            child: VerticalDivider(
+              color: Colors.black,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                data.creditHour,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            height: 60,
+            child: VerticalDivider(
+              color: Colors.black,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      data.theory,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      width: 50,
+                      height: 20,
+                      child: VerticalDivider(
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      data.practical,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 60,
+            child: VerticalDivider(
+              color: Colors.black,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                data.finalGrade,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            height: 60,
+            child: VerticalDivider(
+              color: Colors.black,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                data.gradePoint,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
