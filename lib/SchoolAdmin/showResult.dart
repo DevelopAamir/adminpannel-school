@@ -1,6 +1,7 @@
 import 'package:adminpannel/SchoolAdmin/Connector/pdfGenerator.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/AddResult.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Resultcomponent.dart';
+import 'package:adminpannel/SchoolAdmin/objects/resultObj.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _ShowResultState extends State<ShowResult> {
                           width: 20,
                         ),
                         CircleAvatar(
-                            backgroundColor: Colors.grey,
+                            backgroundColor: Colors.white,
                             radius: 35,
                             backgroundImage: NetworkImage(
                               Provider.of<SchoolProvider>(context,
@@ -441,12 +442,56 @@ class _ShowResultState extends State<ShowResult> {
           title: Text(
             widget.data['Info']['name'],
           ),
-          actions: [OutlinedButton(onPressed: () {}, child: Text('PrintOut'))],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Tooltip(
+                message: 'Print Result',
+                child: OutlinedButton(
+                  onPressed: () async {
+                    await generatePdf(
+                      ResultObj(
+                          Provider.of<SchoolProvider>(context, listen: false)
+                              .info
+                              .logo,
+                          Provider.of<SchoolProvider>(context, listen: false)
+                              .info
+                              .name,
+                          {},
+                          widget.data['Marks'],
+                          {
+                            'name': widget.data['Info']['name'],
+                            'rollno': widget.data['Info']['rollno'],
+                            'class': widget.data['Info']['class'],
+                            'section': widget.data['Info']['section'],
+                          },
+                          Provider.of<SchoolProvider>(context, listen: false)
+                                  .info
+                                  .address +
+                              ', ' +
+                              Provider.of<SchoolProvider>(context,
+                                      listen: false)
+                                  .info
+                                  .phoneNumber,
+                          widget.data['Info']['ExamName'],
+                          widget.data['Info']['gpa'],
+                          widget.data['Info']['Remarks'],
+                          prncipal: widget.data['Info']['principal'].toString(),
+                          exam_coordinator:
+                              widget.data['Info']['stamp'].toString(),
+                          class_teacher:
+                              widget.data['Info']['class_teacher'].toString(),
+                          exam_date: widget.data['Info']['date'].toString()),
+                      context,
+                    );
+                  },
+                  child: Icon(Icons.print, color: Colors.white),
+                ),
+              ),
+            )
+          ],
         ),
-        body: WidgetToImage(builder: (key) {
-          this.key = key;
-          return body;
-        }));
+        body: body);
   }
 }
 

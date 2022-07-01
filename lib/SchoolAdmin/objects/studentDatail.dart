@@ -18,26 +18,31 @@ class StudentDetail {
       phonenumber,
       profilephoto,
       totalfee,
-      remainingfee;
+      remainingfee,
+      password;
+  final String? email;
   final CollectionReference<Map<String, dynamic>> payments;
 
   StudentDetail(
-      this.name,
-      this.class_,
-      this.rollno,
-      this.section,
-      this.fathername,
-      this.mothername,
-      this.fathernumber,
-      this.mothernumber,
-      this.parentsname,
-      this.parentsnumber,
-      this.temporaryaddress,
-      this.permanentadderss,
-      this.dob,
-      this.phonenumber,
-      this.profilephoto,
-      this.totalfee,
-      this.remainingfee,
-      this.payments);
+    this.name,
+    this.class_,
+    this.rollno,
+    this.section,
+    this.fathername,
+    this.mothername,
+    this.fathernumber,
+    this.mothernumber,
+    this.parentsname,
+    this.parentsnumber,
+    this.temporaryaddress,
+    this.permanentadderss,
+    this.dob,
+    this.phonenumber,
+    this.profilephoto,
+    this.totalfee,
+    this.remainingfee,
+    this.password,
+    this.email,
+    this.payments,
+  );
 }

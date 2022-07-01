@@ -5,9 +5,13 @@ class SchoolInfo {
   final String userName;
   final String date;
   final String logo;
+  final String address;
+  final phoneNumber;
 
   SchoolInfo(
       {required this.enrollment,
+      required this.phoneNumber,
+      required this.address,
       required this.name,
       required this.id,
       required this.userName,

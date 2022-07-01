@@ -192,14 +192,26 @@ class Details2 extends StatelessWidget {
             icon: Icons.email,
             obsecuewtext: false,
             controller: emailController,
-            onChange: (c) {},
+            onChange: (c) {
+              userType == 'student'
+                  ? Provider.of<SchoolProvider>(context, listen: false)
+                      .addStudentInformation(key: 'email', value: c)
+                  : Provider.of<SchoolProvider>(context, listen: false)
+                      .addStaffInformation(key: 'email', value: c);
+            },
           ),
           Textfield(
             text: 'Password',
             icon: Icons.password,
             obsecuewtext: false,
             controller: password,
-            onChange: (c) {},
+            onChange: (c) {
+              userType == 'student'
+                  ? Provider.of<SchoolProvider>(context, listen: false)
+                      .addStudentInformation(key: 'password', value: c)
+                  : Provider.of<SchoolProvider>(context, listen: false)
+                      .addStaffInformation(key: 'password', value: c);
+            },
           ),
           Textfield(
             text: 'Confirm Password',

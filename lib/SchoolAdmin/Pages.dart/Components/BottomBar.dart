@@ -17,82 +17,46 @@ class BottomBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                            image: AssetImage('images/bird0.png'),
-                          ),
-                        ),
-                        height: 50,
-                        width: 130,
-                      ),
-                      Text(
-                        '9811006844',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '9826370489',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'school@gmail.com',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'About Us',
+                      'Contact Us',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.blue,
+                          color: Colors.grey,
+                          fontSize: 17,
                           fontWeight: FontWeight.w100),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Text(
-                      'Terms of Service',
+                      'Biratnagar-6',
                       style: TextStyle(
+                          color: Colors.grey,
                           fontSize: 13,
-                          color: Colors.blue,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    Text(
+                      '9811006844',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    Text(
+                      '9826370489',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    Text(
+                      'school@gmail.com',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
                           fontWeight: FontWeight.w100),
                     ),
                     SizedBox(
@@ -104,91 +68,103 @@ class BottomBar extends StatelessWidget {
                   height: 25,
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Useful Links',
+                      'Social Networks',
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        fontWeight: FontWeight.w100,
+                        color: Colors.grey,
+                        fontSize: 17,
                       ),
                     ),
                     SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'About Us',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w100),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Demo Video',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w100),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Blog',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w100),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Social media',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Row(
                       children: [
-                        Icon(Icons.facebook),
-                        SizedBox(
-                          width: 10,
+                        Icon(
+                          Icons.facebook,
+                          color: Colors.white,
+                          size: 15,
                         ),
-                        Icon(Icons.link),
                         SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
-                        Icon(Icons.youtube_searched_for_outlined),
+                        Icon(
+                          Icons.link,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.info,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 25,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Help?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w100,
+                        color: Colors.grey,
+                        fontSize: 17,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Support',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Help centre',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Terms and condition',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w100),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ),
       ),
-      color: Color(0xffF6FFFE),
+      color: Color(0xff021205),
       width: double.infinity,
       height: 160,
     );

@@ -8,6 +8,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mobile =
+        MediaQuery.of(context).size.width <= MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -15,21 +17,24 @@ class Home extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset('images/gradient0.png'),
+                if (!mobile) Image.asset('images/gradient0.png'),
                 Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: mobile ? 1000 : MediaQuery.of(context).size.height,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 30.0, left: 80, right: 20),
+                          padding: mobile
+                              ? EdgeInsets.all(10)
+                              : EdgeInsets.only(top: 30.0, left: 80, right: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width / 4,
+                                width: mobile
+                                    ? MediaQuery.of(context).size.width - 20
+                                    : MediaQuery.of(context).size.width / 4,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -57,21 +62,18 @@ class Home extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.transparent,
-                                  // image: DecorationImage(
-                                  //   fit: BoxFit.fill,
-                                  //   image: NetworkImage(
-                                  //       'https://content.thriveglobal.com/wp-content/uploads/2018/01/techandsuccess.jpg'),
-                                  // ),
                                 ),
                                 height: 200,
-                                width: MediaQuery.of(context).size.width / 2,
+                                width: mobile
+                                    ? null
+                                    : MediaQuery.of(context).size.width / 2,
                               )
                             ],
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 80,
+                        height: 30,
                       ),
                       Expanded(
                         child: Align(
@@ -87,14 +89,16 @@ class Home extends StatelessWidget {
                                   color: Colors.white30,
                                   borderRadius: BorderRadius.circular(29),
                                 ),
-                                height: 244,
-                                width: 379,
+                                height: mobile ? 150 : 244,
+                                width: mobile ? null : 379,
                               ),
                               SizedBox(
                                 width: 20,
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width / 2,
+                                width: mobile
+                                    ? MediaQuery.of(context).size.width
+                                    : MediaQuery.of(context).size.width / 2,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -103,42 +107,52 @@ class Home extends StatelessWidget {
                                     Text(
                                       'OUR THOUGHTS',
                                       style: TextStyle(
-                                          fontSize: 32,
+                                          fontSize: mobile ? 20 : 32,
                                           color: Color(0xff004E36)),
                                     ),
                                     Text(
                                       'We can save our  valuable time by the help of technology (Internet). Now the tehnology is playing very important role in our life.',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xffFFFFFF),
+                                          color: mobile
+                                              ? Colors.black
+                                              : Color(0xffFFFFFF),
                                           fontWeight: FontWeight.w100),
                                     ),
                                     Text(
                                       'Making strong communication between students and teacher.',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xffFFFFFF),
+                                          color: mobile
+                                              ? Colors.black
+                                              : Color(0xffFFFFFF),
                                           fontWeight: FontWeight.w100),
                                     ),
                                     Text(
                                       'We want to change complexityness into easyness.',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xffFFFFFF),
+                                          color: mobile
+                                              ? Colors.black
+                                              : Color(0xffFFFFFF),
                                           fontWeight: FontWeight.w100),
                                     ),
                                     Text(
                                       'We can take many atvantage from the internet we can make our students more learner and can give them interest in it.',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xffFFFFFF),
+                                          color: mobile
+                                              ? Colors.black
+                                              : Color(0xffFFFFFF),
                                           fontWeight: FontWeight.w100),
                                     ),
                                     Text(
                                       'We can provide more opertunitie by the help of internet.',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xffFFFFFF),
+                                          color: mobile
+                                              ? Colors.black
+                                              : Color(0xffFFFFFF),
                                           fontWeight: FontWeight.w100),
                                     ),
                                   ],

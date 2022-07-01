@@ -1,19 +1,16 @@
 import 'package:adminpannel/SchoolAdmin/Connector/Login.dart';
 import 'package:adminpannel/SchoolAdmin/Connector/getData.dart';
-import 'package:adminpannel/SchoolAdmin/Connector/uploadData.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/BottomBar.dart';
-import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Cards.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Drawer1.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Manage.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/animatedscreen.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Login.dart';
-import 'package:adminpannel/SchoolAdmin/Pages.dart/Media.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Signup.dart';
-import 'package:adminpannel/SchoolAdmin/Pages.dart/Subscription.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:adminpannel/Storage/storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,15 +21,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var role = '';
+  final auth = FirebaseAuth.instance;
   Future getToken(context) async {
     var token = await Store().getData('id');
     Provider.of<SchoolProvider>(context, listen: false).getId(token);
     return token;
   }
 
+  getRole() async {
+    final a = await Store().getData('role');
+
+    role = a!;
+  }
+
   int totalStudent = 0;
   int tatalStaff = 0;
   int totalClass = 0;
+  uploadSchoolInfo() {
+    final fire = FirebaseFirestore.instance;
+    if (role != 'Staff')
+      fire
+          .collection(
+              Provider.of<SchoolProvider>(context, listen: false).info.name)
+          .doc('SchoolInfo')
+          .set({
+        'SchoolName':
+            Provider.of<SchoolProvider>(context, listen: false).info.name,
+        'Profile_Pic':
+            Provider.of<SchoolProvider>(context, listen: false).info.logo,
+        'Address':
+            Provider.of<SchoolProvider>(context, listen: false).info.address,
+        'Principal':
+            Provider.of<SchoolProvider>(context, listen: false).info.userName,
+        'Phone No': Provider.of<SchoolProvider>(context, listen: false)
+            .info
+            .phoneNumber,
+        'Gmail': auth.currentUser!.email,
+      });
+  }
 
   getTotal() async {
     var totalSt = await GetData().getTotalStudent(context);
@@ -57,8 +84,10 @@ class _HomePageState extends State<HomePage> {
         await GetData().getData(context).then((value) async {
           await getTotal();
         });
+        uploadSchoolInfo();
       }
     });
+    getRole();
 
     super.initState();
   }
@@ -137,10 +166,12 @@ class _HomePageState extends State<HomePage> {
                                           0xff085A6C,
                                         ),
                                         backgroundImage: NetworkImage(
-                                          'https://i.ytimg.com/vi/VZgnPcMeLf4/hqdefault.jpg',
+                                          context
+                                              .watch<SchoolProvider>()
+                                              .info
+                                              .logo,
                                           headers: {
-                                            'Access-Control-Allow-Origin':
-                                                '5392c387-8403-410e-9456-82f3813bfb86'
+                                            'Access-Control-Allow-Origin': '*'
                                           },
                                         ),
                                       ),
@@ -166,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                           ManageCard(
                             total: [totalStudent, tatalStaff, totalClass],
                           ),
-                          AnimatedScreen(),
+                          AnimatedScreen2(),
                           BottomBar()
                         ],
                       ),

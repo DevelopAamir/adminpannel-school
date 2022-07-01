@@ -13,8 +13,13 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  var role = '';
   Future getToken(context) async {
     var token = await Store().getData('id');
+    var rol = await Store().getData('role');
+    setState(() {
+      role = rol!;
+    });
     Provider.of<SchoolProvider>(context, listen: false).getId(token);
     return token;
   }
@@ -77,7 +82,7 @@ class _ProfilepageState extends State<Profilepage> {
                                 radius: 42,
                                 backgroundColor: Colors.grey[200],
                                 backgroundImage: NetworkImage(
-                                    'https://i.ytimg.com/vi/VZgnPcMeLf4/hqdefault.jpg'),
+                                    context.watch<SchoolProvider>().info.logo),
                               ),
                             ),
                           ),
@@ -99,16 +104,17 @@ class _ProfilepageState extends State<Profilepage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'ID:',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                      if (role != 'Staff')
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'ID:',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ),
-                                      ),
                                       Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
@@ -116,21 +122,23 @@ class _ProfilepageState extends State<Profilepage> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           )),
-                                      Padding(
+                                      if (role != 'Staff')
+                                        Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Subscription Date:',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      if (role != 'Staff')
+                                        Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            'Subscription Date:',
+                                            'UserName:',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
-                                          )),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'UserName:',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
@@ -145,49 +153,53 @@ class _ProfilepageState extends State<Profilepage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        child: Padding(
+                                      if (role != 'Staff')
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              context
+                                                  .watch<SchoolProvider>()
+                                                  .admin['Information']['ID']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            context
-                                                .watch<SchoolProvider>()
-                                                .admin['Information']['ID']
+                                            Provider.of<SchoolProvider>(context)
+                                                .info
+                                                .name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      if (role != 'Staff')
+                                        Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              Provider.of<SchoolProvider>(
+                                                      context)
+                                                  .admin['Information']
+                                                      ['Subscription_Date']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      if (role != 'Staff')
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            Provider.of<SchoolProvider>(context)
+                                                .admin['Information']
+                                                    ['UserName']
                                                 .toString(),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            Provider.of<SchoolProvider>(context)
-                                                .admin['Information']
-                                                    ['School_Name']
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            Provider.of<SchoolProvider>(context)
-                                                .admin['Information']
-                                                    ['Subscription_Date']
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          Provider.of<SchoolProvider>(context)
-                                              .admin['Information']['UserName']
-                                              .toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(

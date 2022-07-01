@@ -26,7 +26,7 @@ class Cards extends StatelessWidget {
           : () {},
       child: Container(
         height: 120,
-        width: 200,
+        width: MediaQuery.of(context).size.width * 0.2,
         margin: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: color,

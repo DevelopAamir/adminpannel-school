@@ -17,6 +17,8 @@ class Maps {
       'Mother_Name': '',
       'Mother_No': '',
       'Fee': '',
+      'password': '',
+      'email': ''
     },
   };
   Map<String, dynamic> staff = {
@@ -28,7 +30,9 @@ class Maps {
       'Per_Address': '',
       'DOB': '',
       'Phone_No': '',
-      'Section': ''
+      'Section': '',
+      'password': '',
+      'email': '',
     },
     'Classes': {
       'Science': {'Title': '', 'Link': '', 'Time': ''},

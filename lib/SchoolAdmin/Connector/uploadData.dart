@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -109,6 +110,8 @@ class Upload {
       } else if (file.files.first.extension!.toLowerCase() == 'docx') {
         contentType =
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      } else if (file.files.first.extension!.toLowerCase() == 'png') {
+        contentType = 'image/png';
       }
       final data = file.files.first.bytes;
       final path = DateTime.now().year;
@@ -238,6 +241,8 @@ class Upload {
         .set({
       'class': className,
       'section': sectionName,
+    }).then((value) {
+      Fluttertoast.showToast(msg: 'Class Added');
     });
   }
 
@@ -412,6 +417,26 @@ class Upload {
             .collection(class_ + section)
             .doc('Attendance')
             .collection(DateTime.now().year.toString())
+            .doc('attendanceDates')
+            .get()
+            .then((value) {
+          List data = value.exists ? value['Dates'] : [];
+          data.add(DateFormat('yyyy-MM-dd').format(DateTime.now()).toString());
+          firestore
+              .collection(school)
+              .doc('Academics')
+              .collection(class_ + section)
+              .doc('Attendance')
+              .collection(DateTime.now().year.toString())
+              .doc('attendanceDates')
+              .set({'Dates': data});
+        });
+        firestore
+            .collection(school)
+            .doc('Academics')
+            .collection(class_ + section)
+            .doc('Attendance')
+            .collection(DateTime.now().year.toString())
             .doc('daily')
             .collection(
                 DateFormat('yyyy-MM-dd').format(DateTime.now()).toString())
@@ -441,6 +466,22 @@ class Upload {
             // .collection(class_ + section)
             .doc('StaffAttendance')
             .set({'Seen': false});
+        firestore
+            .collection(school)
+            .doc('StaffAttendance')
+            .collection(DateTime.now().year.toString())
+            .doc('attendanceDates')
+            .get()
+            .then((value) {
+          List data = value['Dates'];
+          data.add(DateFormat('yyyy-MM-dd').format(DateTime.now()).toString());
+          firestore
+              .collection(school)
+              .doc('StaffAttendance')
+              .collection(DateTime.now().year.toString())
+              .doc('attendanceDates')
+              .set({'Dates': data});
+        });
         firestore
             .collection(school)
             // .doc('Academics')

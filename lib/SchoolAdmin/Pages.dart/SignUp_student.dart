@@ -4,6 +4,7 @@ import 'package:adminpannel/SchoolAdmin/Connector/addStudent.dart';
 import 'package:adminpannel/SchoolAdmin/Connector/uploadData.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Responsive/sinupresponsive.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/SignUp_Staff.dart';
+import 'package:adminpannel/SchoolAdmin/ProgressIndicators.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:adminpannel/Storage/storage.dart';
 import 'package:file_picker/file_picker.dart';
@@ -143,7 +144,8 @@ class _UserStudentState extends State<UserStudent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CupertinoButton(
-                        child: Text('ADD'),
+                        child:
+                            Text('ADD', style: TextStyle(color: Colors.white)),
                         onPressed: () async {
                           setState(() {
                             visibility = true;
@@ -303,13 +305,7 @@ class _UserStudentState extends State<UserStudent> {
                     )
                   ],
                 ),
-                Visibility(
-                    visible: visibility,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xff02242C),
-                      ),
-                    ))
+                indicator(visibility),
               ],
             ),
     );

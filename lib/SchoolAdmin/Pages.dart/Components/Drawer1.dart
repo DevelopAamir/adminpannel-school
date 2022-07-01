@@ -1,14 +1,18 @@
+import 'package:adminpannel/Attendancepages/StudentAttendance.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Drawerbutton.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Landingpage.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Media.dart';
+import 'package:adminpannel/SchoolAdmin/Pages.dart/Posts/addposts.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Profilepage.dart';
+import 'package:adminpannel/SchoolAdmin/Pages.dart/Schooldocuments.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Settings.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/SignUp_Staff.dart';
 import 'package:adminpannel/SchoolAdmin/class.dart';
 import 'package:adminpannel/Storage/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:flutter/material.dart';
+import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/dataProvider.dart';
@@ -48,24 +52,38 @@ class Drawer1 extends StatelessWidget {
                   'Admin Pannel',
                   style: TextStyle(color: Colors.white),
                 ),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.settings,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Settings();
-                    }));
-                  },
-                ),
+                trailing: Provider.of<SchoolProvider>(context, listen: false)
+                        .permissions
+                        .contains('Setting Management')
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Settings();
+                          }));
+                        },
+                      )
+                    : null,
               ),
             ),
             DrawerButton(
               texts: 'Profile',
               page: Profilepage(),
               icon: Icons.home,
+            ),
+            DrawerButton(
+              texts: 'Add posts',
+              page: Addposts(),
+              icon: Icons.post_add_sharp,
+            ),
+            DrawerButton(
+              texts: 'Documents',
+              page: SchoolDocuments(),
+              icon: Icons.attachment,
             ),
             DrawerButton(
               texts: 'Media',
@@ -190,11 +208,19 @@ class Drawer1 extends StatelessWidget {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2015, 8),
-                      lastDate: DateTime(2101));
+                  Provider.of<SchoolProvider>(context, listen: false).date ==
+                          'nepali'
+                      ? picker.showMaterialDatePicker(
+                          context: context,
+                          initialDate: NepaliDateTime.now(),
+                          firstDate: NepaliDateTime(2000),
+                          lastDate: NepaliDateTime(2090),
+                        )
+                      : showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2015, 8),
+                          lastDate: DateTime(2101));
                 },
                 child: Card(
                   elevation: 0.5,
@@ -228,8 +254,7 @@ class Drawer1 extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   await Store().logOut().then((value) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (ontext) => Landingpage()));
+                    Navigator.popUntil(context, ModalRoute.withName('/Login'));
                   });
                 },
                 child: Card(

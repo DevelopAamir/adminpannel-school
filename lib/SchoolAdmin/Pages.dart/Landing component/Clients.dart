@@ -1,299 +1,256 @@
+import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/BottomBar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'homescreen.dart';
 
 class Subscriber extends StatelessWidget {
   const Subscriber({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Container(
-        child:
-            // Image.asset('images/Thirdpage.png'),
-            Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 80.0, left: 80),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Clients',
-                            style: TextStyle(
-                                fontSize: 32, color: Color(0xff004E36)),
-                          ),
-                          Text(
-                            'School app support all devices both Computers and Mobiles (iOs and Android) minimum device specifications requirement.',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xff9BA49E),
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(29),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
+    return ListView(
+      children: [
+        SizedBox(height: 120),
+        Text(
+          'Clients',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              letterSpacing: 2, fontSize: 17, color: Color(0xff4AA393)),
+        ),
+        Text(
+          'Meet our respected clients',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Color(0xff9BA49E)),
+        ),
+        SizedBox(height: 20),
+        ClientsCard(),
+        SizedBox(height: 100),
+        Text(
+          'What our clients says',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              letterSpacing: 2, fontSize: 16, color: Color(0xff4AA393)),
+        ),
+        SizedBox(height: 10),
+        Text(
+          'TESTIMONIALS',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 32,
+              color: Color(0xff004E36)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 100, right: 100),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Featurecard(
-                    text: 'Satyanarayan sec school',
-                    image: 'images/computer.png'),
-                _Featurecard(
-                  text: 'GreenLand College',
-                  image: 'images/computer.png',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.grey,
+                  ),
                 ),
-                _Featurecard(
-                  text: 'Adarsh sec school',
-                  image: 'images/computer.png',
+                Text(
+                  'Milson mike',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: Color(0xff4AA393)),
                 ),
-                _Featurecard(
-                  text: 'Pokharya sec school',
-                  image: 'images/computer.png',
+                SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  'We can save our  valuable time by the help of technology (Internet). Now the tehnology is play very important role in our life.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: Color(0xff949191)),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '2078/05/04',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: Color(0xff949191)),
                 ),
               ],
             ),
-            Container(
-              width: MediaQuery.of(context).size.width / 1,
-              child: Padding(
-                padding: const EdgeInsets.all(60.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Contacts',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xff535353),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Details(
-                          maintxt: '9811006844:/n 9812345678',
-                        ),
-                        Details(
-                          maintxt: 'school@gmail.com',
-                        ),
-                        Details(
-                          maintxt: 'Location:Map',
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Products',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xff535353),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          child: Image(
-                            image: AssetImage(
-                              'images/wings.png',
-                            ),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.copyright,
-                              size: 25,
-                              color: Color(0xff8C8C8C),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Details(
-                              maintxt: '2022 school Pvt.Ltd',
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Social Ntework',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xff535353),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.facebook,
-                              size: 25,
-                              color: Color(0xff8C8C8C),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Facebook',
-                              style: TextStyle(
-                                color: Color(0xff535353),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.message_rounded,
-                              size: 25,
-                              color: Color(0xff8C8C8C),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Message',
-                              style: TextStyle(
-                                color: Color(0xff535353),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.telegram_outlined,
-                              size: 25,
-                              color: Color(0xff8C8C8C),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Teligram',
-                              style: TextStyle(
-                                color: Color(0xff535353),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+          ),
+          height: 150,
+          decoration: BoxDecoration(
+            color: Color(0xffFFFFFF),
+            borderRadius: BorderRadiusDirectional.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xffDCEDF0).withOpacity(0.50),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: Offset(0, 0),
               ),
-              height: 300,
-              // width: double.infinity,
-              decoration: BoxDecoration(
-                color: Color(0xffE3FFFD),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
+        SizedBox(height: 20),
+        BottomBar(),
+      ],
     );
   }
 }
 
-class _Featurecard extends StatelessWidget {
-  final String text;
-
-  final String image;
-  const _Featurecard({
+class ClientsCard extends StatefulWidget {
+  const ClientsCard({
     Key? key,
-    required this.text,
-    required this.image,
   }) : super(key: key);
 
   @override
+  _ClientsCardState createState() => _ClientsCardState();
+}
+
+class _ClientsCardState extends State<ClientsCard> {
+  // int _count = 0;
+
+  List imageList = [
+    'https://images.adsttc.com/media/images/515b/0985/b3fc/4b29/d600/00b3/large_jpg/2edisonacadbldg2880wphoto.jpg?1364920696',
+    'https://i.ytimg.com/vi/VZgnPcMeLf4/hqdefault.jpg',
+    'https://i.ytimg.com/vi/VZgnPcMeLf4/hqdefault.jpg',
+    'https://img.emg-services.net/HtmlPages/HtmlPage15211/masters-2022-header.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyhkiSKalosCYaz0s33svwGr2M_cCkboZIQw&usqp=CAU',
+  ];
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.17,
-          height: MediaQuery.of(context).size.width * 0.17,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 35, bottom: 35),
-              child: Column(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: CupertinoButton(
+        onPressed: () {},
+        child: CarouselSlider(
+          items: imageList.map((imgUrl) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.grey,
+                                backgroundImage: NetworkImage(
+                                  imgUrl,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Milson mike',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  letterSpacing: 2,
+                                  fontSize: 14,
+                                  color: Color(0xff4AA393)),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'School Name: Satyanarayan sec school',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color(0xff9BA49E)),
+                            ),
+                            Text(
+                              'Address: Biratnagar 17, unknown area',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color(0xff9BA49E)),
+                            ),
+                            Text(
+                              'Speciality: International education institute',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color(0xff9BA49E)),
+                            ),
+                            Text(
+                              'Avialable education: Primary,secondary',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Color(0xff9BA49E)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Since 1996',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w100,
+                                        fontSize: 10,
+                                        color: Color(0xffDCDCDC)),
+                                  ),
+                                  SizedBox(width: 70),
+                                  Icon(Icons.facebook,
+                                      size: 18, color: Colors.black),
+                                  SizedBox(width: 5),
+                                  Icon(Icons.info,
+                                      size: 18, color: Colors.black),
+                                  SizedBox(width: 5),
+                                  Icon(Icons.link,
+                                      size: 18, color: Colors.black)
+                                ],
+                              ),
+                            )
+                          ]),
+                    ),
+                    height: 444,
+                    width: 459,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(image), fit: BoxFit.cover),
-                      color: Color(0xffFDC4CF),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(100),
-                      ),
+                      color: Color(0xffFFFFFF),
+                      borderRadius: BorderRadiusDirectional.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xffDCEDF0).withOpacity(0.50),
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    text,
-                    style: TextStyle(
-                        color: Colors.black,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Color(0xffFEFFFF),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffDCEDF0).withOpacity(0.50),
-                spreadRadius: 10,
-                blurRadius: 19,
-                offset: Offset(0, 4), // changes position of shadow
-              ),
-            ],
+                );
+              },
+            );
+          }).toList(),
+          options: CarouselOptions(
+            height: 444,
+            aspectRatio: 14 / 9,
+            viewportFraction: 0.8,
+            initialPage: 0,
+            enableInfiniteScroll: true,
+            reverse: false,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 8),
+            autoPlayAnimationDuration: Duration(milliseconds: 4000),
+            autoPlayCurve: Curves.easeInOutCubic,
+            enlargeCenterPage: true,
+            scrollDirection: Axis.horizontal,
           ),
         ),
       ),

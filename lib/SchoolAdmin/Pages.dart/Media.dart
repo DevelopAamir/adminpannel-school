@@ -29,8 +29,11 @@ class Medias extends StatelessWidget {
             }
           }
           return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 8,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).size.width >=
+                        MediaQuery.of(context).size.height
+                    ? 8
+                    : 3,
               ),
               itemCount: data.length,
               itemBuilder: (context, i) {

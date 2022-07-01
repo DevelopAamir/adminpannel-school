@@ -7,7 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 
 class Assigns extends StatefulWidget {
   final class_;
@@ -28,11 +30,19 @@ class _AssignsState extends State<Assigns> {
   var file;
   bool progress = false;
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        Provider.of<SchoolProvider>(context, listen: false).date == 'nepali'
+            ? await picker.showMaterialDatePicker(
+                context: context,
+                initialDate: NepaliDateTime.now(),
+                firstDate: NepaliDateTime(1970),
+                lastDate: NepaliDateTime(2100),
+              )
+            : await showDatePicker(
+                context: context,
+                initialDate: selectedDate,
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -251,7 +261,6 @@ class Textfilds extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.0),
               ),
               hintText: titles,
-              // labelText: "Fill Details",
               labelStyle: TextStyle(color: Colors.black54, fontSize: 15),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
@@ -444,11 +453,19 @@ class _AssignExamState extends State<AssignExam> {
   var file;
   bool progress = false;
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        Provider.of<SchoolProvider>(context, listen: false).date == 'nepali'
+            ? await picker.showMaterialDatePicker(
+                context: context,
+                initialDate: NepaliDateTime.now(),
+                firstDate: NepaliDateTime(1970),
+                lastDate: NepaliDateTime(2100),
+              )
+            : await showDatePicker(
+                context: context,
+                initialDate: selectedDate,
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -626,11 +643,19 @@ class _AssignResultState extends State<AssignResult> {
   var file;
   bool progress = false;
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        Provider.of<SchoolProvider>(context, listen: false).date == 'nepali'
+            ? await picker.showMaterialDatePicker(
+                context: context,
+                initialDate: NepaliDateTime.now(),
+                firstDate: NepaliDateTime(1970),
+                lastDate: NepaliDateTime(2100),
+              )
+            : await showDatePicker(
+                context: context,
+                initialDate: selectedDate,
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -934,11 +959,19 @@ class _AssignLiveClassState extends State<AssignLiveClass> {
   bool progress = false;
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        Provider.of<SchoolProvider>(context, listen: false).date == 'nepali'
+            ? await picker.showMaterialDatePicker(
+                context: context,
+                initialDate: NepaliDateTime.now(),
+                firstDate: NepaliDateTime(1970),
+                lastDate: NepaliDateTime(2100),
+              )
+            : await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101));
     if (picked != null) {
       setState(() {
         _examDate.text = '${DateFormat('yyyy-MM-dd').format(picked)}';

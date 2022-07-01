@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Textfiel.dart';
+import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/dropdown.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/HomePage.dart';
 import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -95,6 +96,28 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   Divider(),
+                  ListTile(
+                    title: Text('Calender Settings'),
+                    selected: page == 'Calender Settings',
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Select Date Type'),
+                              content: DropDown(
+                                items: ['Select', 'english'],
+                                onchange: (a) {
+                                  Provider.of<SchoolProvider>(context,
+                                          listen: false)
+                                      .setDate(a);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            );
+                          });
+                    },
+                  ),
                 ],
               ),
             ),

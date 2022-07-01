@@ -24,20 +24,21 @@ class Textfield extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          keyboardType: TextInputType.text,
           onTap: onTap,
           onChanged: onChange,
           controller: controller,
-          obscureText: obsecuewtext,
           decoration: InputDecoration(
             border: InputBorder.none,
             prefixIcon: (Icon(
               icon,
-              color: Color(0xff12B081),
+              // color: Color(0xff12B081),
             )),
+            labelText: text,
             hintText: text,
           ),
         ),
@@ -45,3 +46,4 @@ class Textfield extends StatelessWidget {
     );
   }
 }
+ 

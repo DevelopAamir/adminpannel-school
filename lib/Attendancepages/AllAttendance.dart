@@ -41,7 +41,6 @@ class _AllAttendanceState extends State<AllAttendance> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
         title: Row(
           children: [
             Text('Attendance'),
@@ -127,111 +126,43 @@ class _AllAttendanceState extends State<AllAttendance> {
             TopBar(),
             Expanded(
               child: Container(
-                  child: StreamBuilder(
-                      stream: GetData()
-                          .getAttendance(context, label.toString())
-                          .asStream(),
-                      builder: (BuildContext context, AsyncSnapshot snapShort) {
-                        return snapShort.data == null
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                color: Colors.green,
-                              ))
-                            : RefreshIndicator(
-                                onRefresh: () {
-                                  setState(() {});
-                                  return GetData()
-                                      .getAttendance(context, label.toString());
-                                },
-                                child: ListView.builder(
-                                    itemCount: snapShort.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return Cards(
-                                          sn: '${index + 1}',
-                                          date: snapShort.data['${index + 1}']
-                                                  ['Date']
-                                              .toString(),
-                                          name: snapShort.data['${index + 1}']
-                                                  ['Name']
-                                              .toString(),
-                                          status: snapShort.data['${index + 1}']
-                                                  ['Status']
-                                              .toString(),
-                                          day: snapShort.data['${index + 1}']
-                                                  ['Day']
-                                              .toString());
-                                    }),
-                              );
-                      })
-                  // child: ListView.builder(
-                  //     itemCount:
-                  //         Provider.of<SchoolProvider>(context, listen: false)
-                  //             .admin['${label}_Attendance']
-                  //             .length,
-                  //     itemBuilder: (BuildContext ctx, int index) {
-                  //       int reverseIndex =
-                  //           Provider.of<SchoolProvider>(context, listen: false)
-                  //                   .admin['${label}_Attendance']
-                  //                   .length -
-                  //               1 -
-                  //               index;
-                  //       if (label != 'Students') {
-                  //         return Cards(
-                  //           name: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Name']
-                  //               .toString(),
-                  //           date: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Date']
-                  //               .toString(),
-                  //           status: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Status']
-                  //               .toString(),
-                  //           sn: (index + 1).toString(),
-                  //           day: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Day']
-                  //               .toString(),
-                  //         );
-                  //       } else if (int.parse(context
-                  //                   .watch<SchoolProvider>()
-                  //                   .admin['${label}_Attendance']['$reverseIndex']
-                  //               ['Class']) ==
-                  //           _class) {
-                  //         return Cards(
-                  //           name: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Name']
-                  //               .toString(),
-                  //           date: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Date']
-                  //               .toString(),
-                  //           status: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Status']
-                  //               .toString(),
-                  //           sn: (index + 1).toString(),
-                  //           day: context
-                  //               .watch<SchoolProvider>()
-                  //               .admin['${label}_Attendance']['$reverseIndex']
-                  //                   ['Day']
-                  //               .toString(),
-                  //         );
-                  //       } else {
-                  //         return Container();
-                  //       }
-                  //     }),
-                  ),
+                child: StreamBuilder(
+                    stream: GetData()
+                        .getAttendance(context, label.toString())
+                        .asStream(),
+                    builder: (BuildContext context, AsyncSnapshot snapShort) {
+                      return snapShort.data == null
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: Colors.green,
+                            ))
+                          : RefreshIndicator(
+                              onRefresh: () {
+                                setState(() {});
+                                return GetData()
+                                    .getAttendance(context, label.toString());
+                              },
+                              child: ListView.builder(
+                                  itemCount: snapShort.data!.length,
+                                  itemBuilder: (context, index) {
+                                    return Cards(
+                                        sn: '${index + 1}',
+                                        date: snapShort.data['${index + 1}']
+                                                ['Date']
+                                            .toString(),
+                                        name: snapShort.data['${index + 1}']
+                                                ['Name']
+                                            .toString(),
+                                        status: snapShort.data['${index + 1}']
+                                                ['Status']
+                                            .toString(),
+                                        day: snapShort.data['${index + 1}']
+                                                ['Day']
+                                            .toString());
+                                  }),
+                            );
+                    }),
+              ),
             )
           ],
         ),

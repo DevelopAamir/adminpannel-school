@@ -37,23 +37,16 @@ class _ApplicationCardState extends State<ApplicationCard> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipOval(
+                              child: Image.network(
                             context
                                 .watch<SchoolProvider>()
                                 .admin['Information']['Profile_Pic']
                                 .toString(),
-                          ),
-                        ),
-                      ),
+                          ))),
                       Text(
-                        context
-                            .watch<SchoolProvider>()
-                            .admin['Information']['School_Name']
-                            .toString(),
+                        context.watch<SchoolProvider>().info.name.toString(),
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,

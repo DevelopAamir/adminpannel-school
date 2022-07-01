@@ -1,450 +1,529 @@
+import 'dart:math';
+
+import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'homescreen.dart';
 
-class Features extends StatelessWidget {
-  const Features({Key? key}) : super(key: key);
+class Features extends StatefulWidget {
+  Features({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<Features> createState() => _FeaturesState();
+}
+
+class _FeaturesState extends State<Features> {
+  List<Coodinates> coodinates = [
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+    Coodinates(0, 0),
+  ];
+  ScrollController? controller;
+  bool appBarElevate = false;
+  @override
+  void initState() {
+    controller = ScrollController(initialScrollOffset: 0.0);
+
+    controller!.addListener(() {
+      if (controller!.hasClients) print(controller!.offset);
+      if (mounted) {
+        setState(() {
+          if (controller!.offset > 30) {
+            Provider.of<SchoolProvider>(context, listen: false)
+                .changeAppBarFocus(true);
+          } else {
+            Provider.of<SchoolProvider>(context, listen: false)
+                .changeAppBarFocus(false);
+          }
+        });
+      }
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            child: Stack(
-              children: [
-                Divider(
-                  height: 8,
-                  color: Color(0xff179F76),
-                ),
-                Image.asset('images/picture.png'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        controller: controller,
+        child: Container(
+          height: 4595,
+          child: Stack(
+            children: [
+              Bubble(
+                x: 500,
+                y: 1000,
+                increment: true,
+                big: true,
+                listen: (x, y) {
+                  coodinates[0] = Coodinates(x, y);
+                  setState(() {});
+                },
+                coodinates: coodinates,
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 0,
+                y: 2000,
+                increment: false,
+                big: true,
+                listen: (x, y) {
+                  coodinates[1] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 500,
+                y: 3000,
+                increment: true,
+                big: true,
+                listen: (x, y) {
+                  coodinates[2] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 1,
+                y: 4595 - 291,
+                increment: false,
+                big: true,
+                listen: (x, y) {
+                  coodinates[3] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 1,
+                y: 1,
+                increment: true,
+                big: true,
+                listen: (x, y) {
+                  coodinates[4] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 700,
+                y: 150,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[5] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: double.infinity - 80,
+                y: 400,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[6] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 1200,
+                y: 450,
+                increment: true,
+                big: false,
+                listen: (x, y) {
+                  coodinates[7] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 500,
+                y: 500,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[8] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 800,
+                y: 550,
+                increment: true,
+                big: false,
+                listen: (x, y) {
+                  coodinates[9] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 850,
+                y: 1000,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[10] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 400,
+                y: 2000,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[11] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 100,
+                y: 3400,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[12] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 250,
+                y: 4000,
+                increment: true,
+                big: false,
+                listen: (x, y) {
+                  coodinates[13] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Bubble(
+                coodinates: coodinates,
+                x: 70,
+                y: 2500,
+                increment: false,
+                big: false,
+                listen: (x, y) {
+                  coodinates[14] = Coodinates(x, y);
+                  setState(() {});
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 311),
+                child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 80.0, left: 80),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 4,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Features',
-                                    style: TextStyle(
-                                        fontSize: 32, color: Color(0xff004E36)),
-                                  ),
-                                  Text(
-                                    'School app support all devices both Computers and Mobiles (iOs and Android) minimum device specifications requirement.',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Color.fromARGB(255, 3, 3, 3),
-                                        fontWeight: FontWeight.w900),
-                                  ),
-                                ],
-                              ),
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(29),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0, left: 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'DIGITAL WORLD',
-                                  style: TextStyle(
-                                      letterSpacing: 2,
-                                      fontSize: 40,
-                                      color: Color(0xff4AA393)),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Learn more things from our one and only educaton website, ',
-                                  style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontSize: 30,
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(29),
-                            ),
-                          ),
-
-                          // Expanded(
-                          //   child: Container(
-                          //       width: MediaQuery.of(context).size.width / 6,
-                          //       child: Image(
-                          //           image: AssetImage('images/soon.png'))),
-                          // ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        _Featurecard(
-                          text: 'Online Class',
-                          icns: Icons.video_call,
-                        ),
-                        _Featurecard(
-                          icns: Icons.person,
-                          text: 'Attendance',
-                        ),
-                        _Featurecard(
-                          icns: Icons.notifications,
-                          text: 'Notice',
-                        ),
-                        _Featurecard(
-                          icns: Icons.perm_media,
-                          text: 'Media',
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        _Featurecard(
-                          icns: Icons.calendar_month,
-                          text: 'Calender',
-                        ),
-                        _Featurecard(
-                          icns: Icons.work,
-                          text: 'Assignment',
-                        ),
-                        _Featurecard(
-                          icns: Icons.leave_bags_at_home,
-                          text: 'Leave Application',
-                        ),
-                        _Featurecard(
-                          icns: Icons.chat,
-                          text: 'Chat',
-                        ),
-                      ],
-                    ),
+                    Spacer(),
                     SizedBox(
-                      height: 30,
-                    ),
-                    Stack(
-                      children: [
-                        Image(
-                          fit: BoxFit.fitWidth,
-                          image: AssetImage('images/bottomgradient.png'),
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 1,
-                              child: Padding(
-                                padding: const EdgeInsets.all(60.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Contacts',
-                                          style: TextStyle(
-                                            fontSize: 17,
-                                            color: Color(0xff4AA393),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Details(
-                                          maintxt: '9811006844:9812345678',
-                                        ),
-                                        Details(
-                                          maintxt: 'school@gmail.com',
-                                        ),
-                                        Details(
-                                          maintxt: 'Location:Map',
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Social Network',
-                                          style: TextStyle(
-                                            fontSize: 17,
-                                            color: Color(0xff4AA393),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.facebook,
-                                              size: 25,
-                                              color: Color(0xff8C8C8C),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Facebook',
-                                              style: TextStyle(
-                                                color: Color(0xff535353),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.message_rounded,
-                                              size: 25,
-                                              color: Color(0xff8C8C8C),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Message',
-                                              style: TextStyle(
-                                                color: Color(0xff535353),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.telegram_outlined,
-                                              size: 25,
-                                              color: Color(0xff8C8C8C),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Telegram',
-                                              style: TextStyle(
-                                                color: Color(0xff535353),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Help?',
-                                          style: TextStyle(
-                                            fontSize: 17,
-                                            color: Color(0xff4AA393),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Help center',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Color(0xff5CEE8D),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Support',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Color(0xff5CEE8D),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Terms and condition',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            // fontWeight: FontWeight.w100,
-                                            color: Color(0xff5CEE8D),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Quick response',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 17,
-                                            color: Color(0xff4AA393),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(14.0),
-                                            child: Center(
-                                              child: TextField(
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black),
-                                                decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        'Contact Number and address'),
-                                              ),
-                                            ),
-                                          ),
-                                          height: 50,
-                                          width: 288,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(14.0),
-                                            child: Center(
-                                              child: TextField(
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black),
-                                                decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    hintText: 'Institute Name'),
-                                              ),
-                                            ),
-                                          ),
-                                          height: 50,
-                                          width: 288,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          child: Center(
-                                            child: Text(
-                                              'Submite',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                          height: 47,
-                                          width: 288,
-                                          decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                // stops: [
-                                                //   0.9,
-                                                //   0.9,
-                                                //   0.9,
-                                                //   0.9,
-                                                // ],
-                                                colors: [
-                                                  Color(0xff04C899),
-                                                  Color(0xff5709FB),
-                                                  Color(0xffFE0000),
-                                                  Color(0xffFA1C94)
-                                                ],
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.copyright,
-                                              size: 25,
-                                              color: Color(0xff8C8C8C),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Details(
-                                              maintxt: '2022 school Pvt.Ltd',
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              height: 400,
-                              // width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                        width: 654,
+                        height: 650.38,
+                        child: Image.asset('images/mock.png')),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 176.0, left: 69),
+                    child: Text(
+                      'Modernize The Education \nSystem.',
+                      style:
+                          TextStyle(fontSize: 64, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 69, top: 137),
+                    child: Text(
+                      'Pay Only For The Feature \nYou Use',
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 69, top: 142),
+                    child: Container(
+                      width: 225,
+                      height: 79,
+                      child: Center(
+                        child: Text(
+                          'Subscribe Now',
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Color(0xff6EDED7),
+                          borderRadius: BorderRadius.circular(14)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 235),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Our Modules',
+                            style: TextStyle(
+                                fontSize: 55,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          Container(height: 1, width: 432, color: Colors.grey)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 115, left: 69),
+                    child: Text(
+                      '1. Control Panel / Staff Panel',
+                      style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                        top: 108,
+                      ),
+                      child: Center(
+                        child: SizedBox(
+                          width: 1213,
+                          height: 607,
+                          child:
+                              Center(child: Image.asset('images/mackbook.png')),
+                        ),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 104),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Top Features',
+                            style: TextStyle(
+                                fontSize: 55,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          Container(height: 1, width: 432, color: Colors.grey)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 134),
+                    child: Center(
+                      child: Wrap(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(68.0),
+                            child: Container(
+                              width: 300,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(31),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(-2, 4),
+                                        blurRadius: 25,
+                                        spreadRadius: 1,
+                                        color: Color.fromRGBO(0, 0, 0, 0.07))
+                                  ]),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(68.0),
+                            child: Container(
+                              width: 300,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(31),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(-2, 4),
+                                        blurRadius: 25,
+                                        spreadRadius: 1,
+                                        color: Color.fromRGBO(0, 0, 0, 0.07))
+                                  ]),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(68.0),
+                            child: Container(
+                              width: 300,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(31),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(-2, 4),
+                                        blurRadius: 25,
+                                        spreadRadius: 1,
+                                        color: Color.fromRGBO(0, 0, 0, 0.07))
+                                  ]),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
-      ],
+      ),
+    );
+  }
+}
+
+class Bubble extends StatefulWidget {
+  final x;
+  final y;
+  final increment;
+  final bool big;
+  final Function(double, double)? listen;
+  final List<Coodinates> coodinates;
+  const Bubble({
+    Key? key,
+    this.x,
+    this.y,
+    this.increment,
+    required this.big,
+    this.listen,
+    required this.coodinates,
+  }) : super(key: key);
+
+  @override
+  State<Bubble> createState() => _BubbleState();
+}
+
+class _BubbleState extends State<Bubble> with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  double y = 0;
+  double x = 0;
+  bool incrementY = true;
+  bool incrementX = true;
+  @override
+  void initState() {
+    if (y == 0) {
+      y = widget.y;
+      x = widget.x;
+      incrementY = widget.increment;
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 60));
+    _controller!.repeat();
+    _controller!.addListener(() {
+      widget.listen!(x, y);
+      bool overLap = widget.coodinates.where((element) {
+            return element.x == x && element.y < y && element.y > y + 291;
+          }).length >
+          1;
+
+      if (overLap) {
+        print(overLap);
+        setState(() {
+          if (incrementX) {
+            incrementX = false;
+          } else {
+            incrementX = true;
+          }
+        });
+      }
+      setState(() {
+        if (y < 0) {
+          incrementY = true;
+        } else if (y >= 4595 - 291) {
+          incrementY = false;
+        }
+        if (incrementY) {
+          y = y + 1;
+        } else {
+          y = y - 1;
+        }
+        if (x < 0) {
+          incrementX = true;
+        } else if (x >= MediaQuery.of(context).size.width - 291) {
+          incrementX = false;
+        }
+        if (incrementX) {
+          x = x + 1;
+        } else {
+          x = x - 1;
+        }
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 4595,
+      width: double.infinity,
+      color: Colors.transparent,
+      child: Stack(
+        children: [
+          AnimatedBuilder(
+            animation: _controller!.view,
+            builder: ((context, child) {
+              return Positioned(top: y, left: x, child: child!);
+            }),
+            child: Container(
+              width: widget.big ? 291 : 80,
+              height: widget.big ? 291 : 80,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(widget.big ? 145.5 : 40),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 110, 222, 215), width: 1.5)),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -460,45 +539,13 @@ class _Featurecard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.17,
-          height: MediaQuery.of(context).size.width * 0.17,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 35, bottom: 35),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    icns,
-                    size: 60,
-                    color: Color.fromARGB(255, 91, 240, 240),
-                  ),
-                  Text(
-                    text,
-                    style: TextStyle(color: Colors.black, letterSpacing: 1),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Color(0xffFEFFFF),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffDCEDF0).withOpacity(0.50),
-                spreadRadius: 10,
-                blurRadius: 19,
-                offset: Offset(0, 4), // changes position of shadow
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return Container();
   }
+}
+
+class Coodinates {
+  final double x;
+  final double y;
+
+  Coodinates(this.x, this.y);
 }

@@ -36,211 +36,216 @@ class _AcademicsState extends State<Academics> {
         padding: const EdgeInsets.all(15.0),
         child: Align(
           alignment: Alignment.topCenter,
-          child: Wrap(
-            alignment: WrapAlignment.start,
-            children: [
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Homework Management'))
-                StreamBuilder(
-                    stream: firestore
-                        .collection(
-                            Provider.of<SchoolProvider>(context, listen: false)
+          child: SingleChildScrollView(
+            child: Container(
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                children: [
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Homework Management'))
+                    StreamBuilder(
+                        stream: firestore
+                            .collection(Provider.of<SchoolProvider>(context,
+                                    listen: false)
                                 .info
                                 .name)
-                        .doc('Academics')
-                        .collection(widget.class_ + widget.section)
-                        .doc('HomeWorks')
-                        .snapshots(),
-                    builder: (context,
-                        AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                            snapshot) {
-                      return AdministrativeCard(
-                        color: snapshot.hasData
-                            ? snapshot.data!.data() != null
-                                ? snapshot.data!['Seen']
-                                    ? Colors.green.shade100
+                            .doc('Academics')
+                            .collection(widget.class_ + widget.section)
+                            .doc('HomeWorks')
+                            .snapshots(),
+                        builder: (context,
+                            AsyncSnapshot<
+                                    DocumentSnapshot<Map<String, dynamic>>>
+                                snapshot) {
+                          return AdministrativeCard(
+                            color: snapshot.hasData
+                                ? snapshot.data!.data() != null
+                                    ? snapshot.data!['Seen']
+                                        ? Colors.green.shade100
+                                        : Colors.white
                                     : Colors.white
-                                : Colors.white
-                            : Colors.white,
+                                : Colors.white,
+                            icon: Icon(
+                              Icons.task_alt,
+                              color: Colors.white,
+                            ),
+                            title: 'Homework',
+                            onTap: () {
+                              print(snapshot.data!.data() == null);
+                              if (snapshot.data!.data() != null) {
+                                snapshot.data!.reference.set({'Seen': false});
+                              }
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return HomeWork(
+                                  section: widget.section,
+                                  class_: widget.class_,
+                                );
+                              }));
+                            },
+                          );
+                        }),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('StudyMaterial Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Study material',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => StudyMaterial(
+                                      section: widget.section,
+                                      class_: widget.class_,
+                                    ))));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Attendance Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Attendance',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => StudentAttendance(
+                                      section: widget.section,
+                                      class_: widget.class_,
+                                    ))));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Routine Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Routine',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Routine(
+                              class_: widget.class_, section: widget.section);
+                        }));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Live Class Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Live Classes',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => LiveClass(
+                                    class_: widget.class_,
+                                    section: widget.section))));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Exam Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Exam',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Exam(
+                              class_: widget.class_, section: widget.section);
+                        }));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Result Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.task_alt,
+                        color: Colors.white,
+                      ),
+                      title: 'Result',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Result(
+                              class_: widget.class_, section: widget.section);
+                        }));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('LeaveRequest Management'))
+                    AdministrativeCard(
+                      icon: Icon(
+                        Icons.message_outlined,
+                        color: Colors.white,
+                      ),
+                      title: 'Leave Requests',
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return LeaveRequests(
+                              class_: widget.class_, section: widget.section);
+                        }));
+                      },
+                    ),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Student Management'))
+                    AdministrativeCard(
                         icon: Icon(
                           Icons.task_alt,
                           color: Colors.white,
                         ),
-                        title: 'Homework',
+                        title: 'Students',
                         onTap: () {
-                          print(snapshot.data!.data() == null);
-                          if (snapshot.data!.data() != null) {
-                            snapshot.data!.reference.set({'Seen': false});
-                          }
-
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return HomeWork(
-                              section: widget.section,
-                              class_: widget.class_,
-                            );
+                            return StudentRecords(
+                                class_: widget.class_, section: widget.section);
                           }));
-                        },
-                      );
-                    }),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('StudyMaterial Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Study material',
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => StudyMaterial(
-                                  section: widget.section,
-                                  class_: widget.class_,
-                                ))));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Attendance Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Attendance',
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => StudentAttendance(
-                                  section: widget.section,
-                                  class_: widget.class_,
-                                ))));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Routine Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Routine',
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Routine(
-                          class_: widget.class_, section: widget.section);
-                    }));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Live Class Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Live Classes',
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => LiveClass(
-                                class_: widget.class_,
-                                section: widget.section))));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Exam Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Exam',
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Exam(
-                          class_: widget.class_, section: widget.section);
-                    }));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Result Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.task_alt,
-                    color: Colors.white,
-                  ),
-                  title: 'Result',
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Result(
-                          class_: widget.class_, section: widget.section);
-                    }));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('LeaveRequest Management'))
-                AdministrativeCard(
-                  icon: Icon(
-                    Icons.message_outlined,
-                    color: Colors.white,
-                  ),
-                  title: 'Leave Requests',
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LeaveRequests(
-                          class_: widget.class_, section: widget.section);
-                    }));
-                  },
-                ),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Student Management'))
-                AdministrativeCard(
-                    icon: Icon(
-                      Icons.task_alt,
-                      color: Colors.white,
-                    ),
-                    title: 'Students',
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return StudentRecords(
-                            class_: widget.class_, section: widget.section);
-                      }));
-                    }),
-              if (Provider.of<SchoolProvider>(context, listen: false)
-                  .permissions
-                  .contains('Notice Management'))
-                AdministrativeCard(
-                    icon: Icon(
-                      Icons.task_alt,
-                      color: Colors.white,
-                    ),
-                    title: 'Notice',
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Notices(
-                            class_: widget.class_, section: widget.section);
-                      }));
-                    }),
-            ],
+                        }),
+                  if (Provider.of<SchoolProvider>(context, listen: false)
+                      .permissions
+                      .contains('Notice Management'))
+                    AdministrativeCard(
+                        icon: Icon(
+                          Icons.task_alt,
+                          color: Colors.white,
+                        ),
+                        title: 'Notice',
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Notices(
+                                class_: widget.class_, section: widget.section);
+                          }));
+                        }),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -649,6 +654,7 @@ class _StaffAttendanceState extends State<StaffAttendance> {
     'Friday',
     'Saturday'
   ];
+
   var _selectedDate =
       DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
 

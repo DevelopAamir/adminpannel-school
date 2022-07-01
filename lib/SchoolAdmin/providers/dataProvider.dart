@@ -6,6 +6,12 @@ import 'package:flutter/cupertino.dart';
 
 class SchoolProvider with ChangeNotifier {
   var accessToken;
+  var date = 'english';
+  setDate(value) {
+    date = value;
+    notifyListeners();
+  }
+
   getId(ids) {
     accessToken = ids;
     notifyListeners();
@@ -20,6 +26,7 @@ class SchoolProvider with ChangeNotifier {
 
   List<String> feeCatogaries = ['Select'];
   List<String> examNames = ['Select'];
+  bool appBarFocused = false;
   var role;
   List permissions = [];
   Map student = Maps().student;
@@ -27,6 +34,12 @@ class SchoolProvider with ChangeNotifier {
   Map admin = Maps().admin;
   Map<String, dynamic> attendanceRegister = Maps().attendance;
   Map<String, Object?> attendanceToBeSend = {};
+
+  changeAppBarFocus(bool st) {
+    appBarFocused = st;
+
+    notifyListeners();
+  }
 
   getFeesTypes(response) {
     if (!feeCatogaries.contains(response)) {
@@ -127,7 +140,9 @@ class SchoolProvider with ChangeNotifier {
       id: 'id',
       userName: 'userName',
       date: 'date',
-      logo: 'logo');
+      logo: 'logo',
+      address: 'address',
+      phoneNumber: '');
   getSchoolInfo(DocumentSnapshot<Map<String, dynamic>> response) {
     final information = SchoolInfo(
       enrollment: response.data()!["Information"]["EnrollmentNumber"],
@@ -136,6 +151,8 @@ class SchoolProvider with ChangeNotifier {
       userName: response.data()!["Information"]["UserName"],
       date: response.data()!['Information']['Subscription_Date'],
       logo: response.data()!["Information"]["Profile_Pic"],
+      address: response.data()!["Information"]["Per_Address"],
+      phoneNumber: response.data()!["Information"]["Phone_No"],
     );
     info = information;
     notifyListeners();
@@ -152,6 +169,8 @@ class SchoolProvider with ChangeNotifier {
       userName: response.data()!["Information"]["Name"],
       date: '',
       logo: response.data()!["Information"]["Profile_Pic"],
+      address: '',
+      phoneNumber: null,
     );
     info = information;
     notifyListeners();

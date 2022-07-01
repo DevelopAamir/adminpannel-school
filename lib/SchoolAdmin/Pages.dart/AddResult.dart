@@ -1,5 +1,4 @@
 import 'package:adminpannel/SchoolAdmin/Connector/uploadData.dart';
-import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/Textfiel.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Components/dropdown.dart';
 import 'package:adminpannel/SchoolAdmin/Pages.dart/Resultcomponent.dart';
 import 'package:adminpannel/SchoolAdmin/ProgressIndicators.dart';
@@ -156,9 +155,13 @@ class _AddresultState extends State<Addresult> {
                                                 width: 20,
                                               ),
                                               CircleAvatar(
-                                                backgroundColor: Colors.grey,
-                                                radius: 25,
-                                              ),
+                                                  backgroundColor: Colors.grey,
+                                                  radius: 25,
+                                                  backgroundImage: NetworkImage(
+                                                      Provider.of<SchoolProvider>(
+                                                              context)
+                                                          .info
+                                                          .logo)),
                                               SizedBox(
                                                 width: 150,
                                               ),
@@ -308,9 +311,13 @@ class _AddresultState extends State<Addresult> {
                                           width: 20,
                                         ),
                                         CircleAvatar(
-                                          backgroundColor: Colors.grey,
-                                          radius: 25,
-                                        ),
+                                            backgroundColor: Colors.grey,
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(
+                                                Provider.of<SchoolProvider>(
+                                                        context)
+                                                    .info
+                                                    .logo)),
                                         SizedBox(
                                           width: 200,
                                         ),

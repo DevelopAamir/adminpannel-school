@@ -4,9 +4,6 @@ import 'package:adminpannel/SchoolAdmin/providers/dataProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../StaffUI/Teacher/Class.dart';
-import '../Media.dart';
 import 'Cards.dart';
 
 class ManageCard extends StatelessWidget {
